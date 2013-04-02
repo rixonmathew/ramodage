@@ -1,0 +1,33 @@
+{
+    "name":"instruments",
+    "type":"fixed-width",
+    "fields":[
+        {
+            "name":"id",
+            "type":"int",
+            "fixedLength":15
+        },
+        {
+            "name":"CUSIP",
+            "type":"String",
+            "fixedLength":25,
+            "prefix":"CUS"
+        },
+        {
+            "name":"NAME",
+            "type":"String",
+            "fixedLength":"100",
+            "suffix":".CORP"
+        },
+        {
+            "name":"type",
+            "type":"String",
+            "range":"EQU,BON,FUT,OPT,WAR"
+        },
+        {
+            "name":"owner",
+            "type":"String",
+            "constantValue":"ICICI"
+        }
+    ]
+}
