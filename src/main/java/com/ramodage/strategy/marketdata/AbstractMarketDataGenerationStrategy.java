@@ -15,12 +15,11 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * This is the base class for generating market data. Quotes and Trades have some amount of commonality.
+ * To achieve code reuse this abstract class has been introduced
  * User: rixon
  * Date: 11/3/13
  * Time: 4:45 PM
- * This is the base class for generating market data. Quotes and Trades have some amount of commonality.
- * To acheive code reuse this abstract class has been introduced
  */
 public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataGenerationStrategy {
 
@@ -32,6 +31,31 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     protected long stepValue;
     private long startTimestamp;
     private long endTimestamp;
+
+
+    @Override
+    protected void populateDataForSplit(long split, String taskId) throws IOException {
+        RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
+        List<Long> timestamps = timestampsPerSplit.get(split);
+        File outputFile = filesForSplit.get(split);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+        Long startTime = timestamps.get(0);
+        Long endTime = timestamps.get(1);
+        while (startTime<=endTime){
+            for (String symbolName:masterQuotes.keySet()){
+                for (PriceSet priceSet:masterQuotes.get(symbolName)) {
+                    Map<Field,String> overriddenValues = determineOverriddenValues(startTime,symbolName,priceSet);
+                    String record = recordCreationStrategy.createRecordWithOverrides(schema,options,0,overriddenValues);
+                    writer.write(record);
+                    writer.newLine();
+                }
+            }
+            startTime+=stepValue;
+            progressReporter.updateThreadProgress(taskId, (endTime-startTime)*1.0f/endTime);
+        }
+        writer.close();
+    }
+
 
     @Override
     protected void prepareForDataGeneration() {
@@ -99,15 +123,7 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
         return priceSets;
     }
 
-    protected String getValueWithPadding(String value, Field field) {
-        int paddingLength = field.getFixedLength()-value.length();
-        StringBuilder valueWithPadding = new StringBuilder();
-        for (int i=0;i<paddingLength;i++) {
-            valueWithPadding.append(field.getPadding());
-        }
-        return valueWithPadding.append(value).toString();
-    }
-
+    //TODO This methods should not be in strategy. Think about how this can be moved to ValueProvider
     protected String getRandomValue(String baseValue, double randomBound, Field field) {
         Random random = new Random();
         double multiplier = random.nextInt(1)==1?1.0d:-1.0d;
@@ -116,27 +132,14 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
         return getValueWithPadding(randomValue.toPlainString(),field);
     }
 
-    @Override
-    protected void populateDataForSplit(long split, String taskId) throws IOException {
-        RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
-        List<Long> timestamps = timestampsPerSplit.get(split);
-        File outputFile = filesForSplit.get(split);
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-        Long startTime = timestamps.get(0);
-        Long endTime = timestamps.get(1);
-        while (startTime<=endTime){
-            for (String symbolName:masterQuotes.keySet()){
-                for (PriceSet priceSet:masterQuotes.get(symbolName)) {
-                    Map<Field,String> overriddenValues = determineOverriddenValues(startTime,symbolName,priceSet);
-                    String record = recordCreationStrategy.createRecordWithOverrides(schema,options,0,overriddenValues);
-                    writer.write(record);
-                    writer.newLine();
-                }
-            }
-            startTime+=stepValue;
-            progressReporter.updateThreadProgress(taskId, (endTime-startTime)*1.0f/endTime);
+    //TODO This methods should not be in strategy. Think about how this can be moved to ValueProvider
+    protected String getValueWithPadding(String value, Field field) {
+        int paddingLength = field.getFixedLength()-value.length();
+        StringBuilder valueWithPadding = new StringBuilder();
+        for (int i=0;i<paddingLength;i++) {
+            valueWithPadding.append(field.getPadding());
         }
-        writer.close();
+        return valueWithPadding.append(value).toString();
     }
 
     protected abstract Map<Field,String> determineOverriddenValues(Long startTime, String symbolName, PriceSet priceSet);

@@ -1,7 +1,8 @@
 package com.ramodage.provider;
 
 /**
- * User: rixonmathew
+ * This class represents a random Long provider
+ * User: rixon
  * Date: 20/01/13
  * Time: 9:42 PM
  */

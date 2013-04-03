@@ -8,20 +8,22 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * User: rixonmathew
+ * This class is responsible for parsing the contents of configuration file into a Schema
+ * User: rixon
  * Date: 19/01/13
  * Time: 1:30 PM
- * This class represents the configuration
  */
 public class SchemaParser {
 
     private static final Logger LOG = Logger.getLogger(SchemaParser.class);
+
     public static Schema parse(String configurationFileName) {
         Schema schema = null;
         try {
             String jsonString = readInputFile(configurationFileName);
             schema = populateAttributes(jsonString);
         } catch (IOException e) {
+            LOG.error("An error occurred while reading the schema file:"+configurationFileName);
             e.printStackTrace();
         }
         return schema;

@@ -1,7 +1,7 @@
 package com.ramodage.provider;
 
 /**
- * Created with IntelliJ IDEA.
+ * This class represents a random AlphaNumeric provider
  * User: rixon
  * Date: 22/1/13
  * Time: 2:10 PM

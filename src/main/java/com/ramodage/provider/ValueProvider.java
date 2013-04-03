@@ -3,10 +3,10 @@ package com.ramodage.provider;
 import com.ramodage.configuration.Field;
 
 /**
- * User: rixonmathew
+ * This interface is used for providing a random value of the given type
+ * User: rixon
  * Date: 20/01/13
  * Time: 9:38 PM
- * This interface is used for providing a random value of the given type
  */
 public interface ValueProvider<TYPE> {
 

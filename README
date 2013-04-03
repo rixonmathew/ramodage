@@ -1,1 +1,23 @@
-This file was created by IntelliJ IDEA 12.0.4 for binding GitHub repository
+This utility can be used to generate structured data sets using random value providers. Some applications of this utility
+are generate large amounts of trade or quotes data. This utility can scale to provide GB's of data in minutes
+(27 GB data has been generated in under 30 minutes on a laptop(i5 with 4GB ram running Ubuntu 12.04))
+
+How to use this
+================
+1) Build the jar:
+   This utility is completely mavenized so jar can be built using command
+   mvn clean compile assembly:single
+
+2) Create the schema:
+   Based on the data set required the schema file needs to be created.Many sample schema files
+   are provided in test/resources folder
+
+3) Create the properties file:
+   This file is used to provide other properties for the utility
+
+4) Run the utility:
+   java -jar ramodage-1.0-jar-with-dependencies.jar --file <property_file>
+
+   The utility will display the progress while its running ( especially useful in case of generating large amounts of data)
+   Once this is done it will create a folder specified in the properties file and all files with data will be generated
+   there

@@ -8,11 +8,10 @@ import com.ramodage.configuration.Schema;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
+ * This interface implements a strategy for creating records based on file type ( delimited,fixedWidht).
  * User: rixon
  * Date: 25/1/13
  * Time: 10:28 AM
- * This interface implements a strategy for creating records based on file type ( delimited,fixedWidht).
  *
  */
 public interface RecordCreationStrategy {

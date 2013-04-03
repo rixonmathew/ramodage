@@ -4,7 +4,7 @@ import com.ramodage.util.StringUtil;
 
 /**
  * This class will provide random string values.
- * User: rixonmathew
+ * User: rixon
  * Date: 20/01/13
  * Time: 11:21 PM
  */

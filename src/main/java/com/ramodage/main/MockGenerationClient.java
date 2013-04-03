@@ -20,6 +20,7 @@ import java.util.Properties;
  */
 public class MockGenerationClient {
 
+    //TODO refactor this into a launcher class. main should be calling the launcher.
     private static final String DEFAULT_GENERATION_TYPE = "random";
     private static final int DEFAULT_NUMBER_OF_SPLITS = 5;
     private static final String DEFAULT_OUTPUT_DIR = "output_"+System.currentTimeMillis();

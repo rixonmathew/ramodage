@@ -3,11 +3,11 @@ package com.ramodage.provider;
 import java.math.BigDecimal;
 
 /**
- * Created with IntelliJ IDEA.
+ * This class represents a random BigDecimal provider
  * User: rixon
  * Date: 12/2/13
  * Time: 11:00 AM
- * This class provides random values of type BigDecimal
+
  */
 public class BigDecimalValueProvider extends AbstractValueProvider<BigDecimal>{
 

@@ -6,11 +6,10 @@ import com.ramodage.util.DateUtil;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
+ * This class represents a random timestamp provider
  * User: rixon
  * Date: 12/2/13
  * Time: 3:31 PM
- * This class provides random values of type Timestamp
  */
 public class TimestampValueProvider extends AbstractValueProvider<Date> {
 

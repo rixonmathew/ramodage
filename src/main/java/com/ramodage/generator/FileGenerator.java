@@ -8,13 +8,14 @@ import com.ramodage.configuration.Schema;
 import org.apache.log4j.Logger;
 
 /**
+ * This class is responsible for creating the actual output files based on options
  * User: rixonmathew
  * Date: 20/01/13
  * Time: 1:17 PM
- * This class is responsible for creating the actual output files based on options
  */
 public class FileGenerator {
 
+    //TODO Strategy has become very heavy. Can some of the responsibilities of the strategy class be broken out into the generator?
     private final Options options;
     private final Schema schema;
     private FileGenerationStrategy strategy;

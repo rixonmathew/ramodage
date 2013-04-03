@@ -13,13 +13,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * The base class for DataGenerationStrategy. This class encapsulates all common activities as part of data generation.
+ * This class provides a framework for distributing data generation among multiple threads. The work to be done in
+ * each thread is to be implemented by specific strategies.
  * Created with IntelliJ IDEA.
  * User: rixon
  * Date: 7/3/13
  * Time: 7:06 PM
- * The base class for DataGenerationStrategy. This class encapsulates all common activities as part of data generation.
- * This class provides a framework for distributing data generation among multiple threads. The work to be done in
- * each thread is to be implemented by specific strategies.
  */
 public abstract class AbstractDataGenerationStrategy implements FileGenerationStrategy {
 
@@ -106,7 +106,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
 
     private void updateProgress(double progressPercentage) {
         final int width = 90; // progress bar width in chars
-
+        //TODO instead of directly writing to System.out have the writer as a dependency
         System.out.print("\r[");
         int i = 0;
         for (; i <= (int)(progressPercentage*width*0.01f); i++) {
@@ -167,7 +167,8 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
             try {
                 populateDataForSplit(split,taskId);
             } catch (IOException e) {
-                LOG.error("An error occurred while populating data for split:"+split);
+                LOG.error("An error occurred while populating data for split: "+split);
+                e.printStackTrace();
             }
         }
     }

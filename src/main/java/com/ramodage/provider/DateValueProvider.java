@@ -6,7 +6,8 @@ import com.ramodage.util.DateUtil;
 import java.util.Date;
 
 /**
- * User: rixonmathew
+ * This class represents a random Date provider
+ * User: rixon
  * Date: 20/01/13
  * Time: 9:43 PM
  */

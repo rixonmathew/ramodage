@@ -131,7 +131,7 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
     /**
      * This method is used to convert from String to specific type to avoid casting errors
      * @param value
-     * @return
+     * @return the value as a specific type
      */
     protected abstract TYPE valueFromString(String value);
 

@@ -5,6 +5,7 @@ import com.ramodage.configuration.Schema;
 import com.ramodage.configuration.Options;
 import com.ramodage.provider.TypeValueProviders;
 import com.ramodage.provider.ValueProvider;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import java.util.Map;
  */
 public abstract class AbstractRecordCreationStrategy implements RecordCreationStrategy {
 
+    private static final Logger LOG = Logger.getLogger(AbstractRecordCreationStrategy.class);
     @Override
     public String createRecord(Schema schema, Options options, long recordCounter) {
         return createRecordWithOverrides(schema,options,recordCounter,null);
@@ -28,7 +30,8 @@ public abstract class AbstractRecordCreationStrategy implements RecordCreationSt
         }
         ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
         if (valueProvider == null) {
-            System.out.println("VP null for field" + field);
+            LOG.error("ValueProvider is null for field" + field);
+            return "";
         }
         return valueProvider.randomValueAsString(field);
     }
