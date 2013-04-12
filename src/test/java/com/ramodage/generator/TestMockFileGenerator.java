@@ -66,11 +66,11 @@ public class TestMockFileGenerator {
 
     }
 
-//    @After
-//    public void cleanup() {
-//        if(directory!=null)
-//            TestUtil.removeDirectory(directory);
-//    }
+    @After
+    public void cleanup() {
+        if(directory!=null)
+            TestUtil.removeDirectory(directory);
+    }
 
 
     private void validatePositionsFixedWidthMockFileCreation(String schemaName) throws IOException {
