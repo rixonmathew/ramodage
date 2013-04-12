@@ -58,6 +58,13 @@ public class TestMockFileGenerator {
 
     }
 
+    @Test
+    public void testJSONPositionFileGeneration() throws IOException {
+        String schemaName = "rp_positions_json.json";
+        String schemaPath = TestUtil.getFullPathForFile(schemaName);
+        validateJSONMockFileCreation(schemaPath);
+
+    }
 
 //    @After
 //    public void cleanup() {
@@ -142,5 +149,12 @@ public class TestMockFileGenerator {
         assertFiles(options, fileGenerator);
     }
 
+    private void validateJSONMockFileCreation(String schemaName) {
+        Schema schema = SchemaParser.parse(schemaName);
+        final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
+        Options options = createMockOptions(outputDirectory, "random");
+        FileGenerator fileGenerator = new FileGenerator(options,schema);
+        assertFiles(options, fileGenerator);
+    }
 }
 

@@ -9,21 +9,22 @@ import org.junit.Test;
 import static junit.framework.Assert.assertNotNull;
 
 /**
- * This class is used for testing the XMLRecordCreationStrategy.
+ * This file is used for testing JSON Record creating strategy
  * User: rixon
  * Date: 12/4/13
- * Time: 7:13 PM
+ * Time: 8:39 PM
  */
-public class TestXMLRecordCreationStrategy {
+public class TestJSONRecordCreationStrategy {
 
     @Test
-    public void testXMLRecordCreation() {
+    public void testJSONRecordCreation() {
         Schema schema = MockDataProvider.createMockSchema();
         Options options = MockDataProvider.createMockOptions();
-        RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor("xml");
+        RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor("json");
         assertNotNull(recordCreationStrategy);
-        //String expectedString = "<position>\n</position>";
         String recordString = recordCreationStrategy.createRecord(schema,options,1);
+        System.out.println(recordString);
         //assertThat(recordString,is(expectedString));
     }
+
 }
