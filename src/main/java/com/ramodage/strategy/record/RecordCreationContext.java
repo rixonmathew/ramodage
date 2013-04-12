@@ -16,11 +16,13 @@ public class RecordCreationContext {
 
     private static final String DELIMITED = "delimited";
     private static final String FIXED_WIDTH = "fixed-width";
+    private static final String XML = "xml";
 
     static {
         recordCreationStrategies = new HashMap<String, RecordCreationStrategy>();
         recordCreationStrategies.put(DELIMITED,new DelimitedRecordCreationStrategy());
         recordCreationStrategies.put(FIXED_WIDTH,new FixedWidthRecordCreationStrategy());
+        recordCreationStrategies.put(XML,new XMLRecordCreationStrategy());
     }
 
 

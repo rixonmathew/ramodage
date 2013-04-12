@@ -50,12 +50,20 @@ public class TestMockFileGenerator {
 
     }
 
+    @Test
+    public void testXMLPositionsFileGeneration() throws IOException {
+        String schemaName = "rp_positions_xml.json";
+        String schemaPath = TestUtil.getFullPathForFile(schemaName);
+        validateXMLMockFileCreation(schemaPath);
 
-    @After
-    public void cleanup() {
-        if(directory!=null)
-            TestUtil.removeDirectory(directory);
     }
+
+
+//    @After
+//    public void cleanup() {
+//        if(directory!=null)
+//            TestUtil.removeDirectory(directory);
+//    }
 
 
     private void validatePositionsFixedWidthMockFileCreation(String schemaName) throws IOException {
@@ -78,7 +86,6 @@ public class TestMockFileGenerator {
         assertFiles(options, fileGenerator);
         assertRecordLength(options,expectedMockLength);
     }
-
 
 
     private void validateMockFileCreation(String schemaName) {
@@ -126,5 +133,14 @@ public class TestMockFileGenerator {
         options.setOutputDirectory(outputDirectory);
         return options;
     }
+
+    private void validateXMLMockFileCreation(String schemaName) throws IOException {
+        Schema schema = SchemaParser.parse(schemaName);
+        final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
+        Options options = createMockOptions(outputDirectory, "random");
+        FileGenerator fileGenerator = new FileGenerator(options,schema);
+        assertFiles(options, fileGenerator);
+    }
+
 }
 

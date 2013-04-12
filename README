@@ -18,6 +18,6 @@ How to use this
 4) Run the utility:
    java -jar ramodage-1.0-jar-with-dependencies.jar --file <property_file>
 
-   The utility will display the progress while its running ( especially useful in case of generating large amounts of data)
+   The utility will display the progress while its running ( This is especially useful in case of generating large amounts of data)
    Once this is done it will create a folder specified in the properties file and all files with data will be generated
    there
