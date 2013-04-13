@@ -22,6 +22,7 @@ public class TypeValueProviders {
         valueProviders.put("Date",new DateValueProvider());
         valueProviders.put("BigDecimal",new BigDecimalValueProvider());
         valueProviders.put("Timestamp",new TimestampValueProvider());
+        //TODO add AlphaNumeric
     }
 
 
