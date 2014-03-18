@@ -2,8 +2,6 @@ package com.ramodage.strategy;
 
 import com.ramodage.strategy.record.RecordCreationContext;
 import com.ramodage.strategy.record.RecordCreationStrategy;
-import com.ramodage.strategy.record.RecordCreationContext;
-import com.ramodage.strategy.record.RecordCreationStrategy;
 
 import java.io.BufferedWriter;
 import java.io.File;
