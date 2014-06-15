@@ -75,37 +75,37 @@ public class TestMockFileGenerator {
 
     private void validatePositionsFixedWidthMockFileCreation(String schemaName) throws IOException {
         int expectedMockLength = 287;
-        Schema schema = SchemaParser.parse(schemaName);
+        Schema schema = SchemaParser.parseFromFile(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options, fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options, fileGenerator);
         assertRecordLength(options,expectedMockLength);
     }
 
 
     private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {
         int expectedMockLength = 148;
-        Schema schema = SchemaParser.parse(schemaName);
+        Schema schema = SchemaParser.parseFromFile(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options, fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options, fileGenerator);
         assertRecordLength(options,expectedMockLength);
     }
 
 
     private void validateMockFileCreation(String schemaName) {
-        Schema schema = SchemaParser.parse(schemaName);
+        Schema schema = SchemaParser.parseFromFile(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options, fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options, fileGenerator);
     }
 
 
-    private void assertFiles(Options options, FileGenerator fileGenerator) {
-        fileGenerator.generateFiles();
+    private void assertFiles(Schema schema,Options options, FileGenerator fileGenerator) {
+        fileGenerator.generateData(schema,options);
         directory = new File(options.getOutputDirectory());
         File file = new File(options.getOutputDirectory());
         assertThat(file.isDirectory(),is(true));
@@ -142,19 +142,19 @@ public class TestMockFileGenerator {
     }
 
     private void validateXMLMockFileCreation(String schemaName) throws IOException {
-        Schema schema = SchemaParser.parse(schemaName);
+        Schema schema = SchemaParser.parseFromFile(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options, fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options, fileGenerator);
     }
 
     private void validateJSONMockFileCreation(String schemaName) {
-        Schema schema = SchemaParser.parse(schemaName);
+        Schema schema = SchemaParser.parseFromFile(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options, fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options, fileGenerator);
     }
 }
 

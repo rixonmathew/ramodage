@@ -16,22 +16,17 @@ import java.io.IOException;
  * Time: 8:33 PM
 
  */
-public class RandomFileGenerationStrategy extends AbstractDataGenerationStrategy {
+public class RandomFileGenerationStrategy<TYPE> extends AbstractDataGenerationStrategy<TYPE> {
 
 
     @Override
-    protected void populateDataForSplit(long split, String taskId) throws IOException {
-        File outputFile = filesForSplit.get(split);
-        //TODO think about injecting the writer instead of hardcoding a giver writer.
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+    protected void populateDataForSplit(String split, String taskId) throws IOException {
         RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
         long maxRecords = options.getNumberOfRecordsPerSplit();
         for (int i = 0; i < maxRecords; i++) {
             String record = recordCreationStrategy.createRecord(schema, options, i);
-            writer.write(record);
-            writer.newLine();
+            this.dataDestination.addRecord(split,record);
             progressReporter.updateThreadProgress(taskId, (i + 1) * 100.0f / maxRecords);
         }
-        writer.close();
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
  * Time: 10:53 AM
  * This strategy is responsible for creating fixedWidthRecord based on the fields
  */
-public class FixedWidthRecordCreationStrategy extends AbstractRecordCreationStrategy {
+public class FixedWidthRecordCreationStrategy<TYPE> extends AbstractRecordCreationStrategy<TYPE> {
 
     @Override
     public String createRecordWithOverrides(Schema schema, Options options, long recordCounter, Map<Field, String> overriddenFields) {

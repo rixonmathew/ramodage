@@ -1,5 +1,8 @@
 package com.ramodage.main;
 
+import com.ramodage.factory.DataGenerationFactory;
+import com.ramodage.factory.RamodageFactory;
+import com.ramodage.model.RandomData;
 import com.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Test;
@@ -34,8 +37,7 @@ public class ClientTest {
     @Test
     public void testRecordDataGeneration() {
         //This method is used for testing the record based data generation
-        Ramodage ramodage = DataGenerationFactory.getInMemoryDataGenerator();
-
+        Ramodage ramodage = RamodageFactory.getWithDefaultOptions();
         Properties properties = createMockProperties();
         RandomData randomData =  ramodage.generateData(properties);
         assertNotNull(randomData);

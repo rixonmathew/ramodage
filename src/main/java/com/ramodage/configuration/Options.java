@@ -14,7 +14,8 @@ public class Options {
     private long numberOfRecordsPerSplit;
     private String outputDirectory;
     private int numberOfThreads;
-    private String generationClass;
+    private String dataGenerationStrategyClassName;
+    private String objectClassName;
 
     public Options() {
         this.generationType = DEFAULT_GENERATION_TYPE;
@@ -64,11 +65,19 @@ public class Options {
         this.numberOfThreads = numberOfThreads;
     }
 
-    public void setGenerationClass(String generationClass) {
-        this.generationClass = generationClass;
+    public void setDataGenerationStrategyClassName(String dataGenerationStrategyClassName) {
+        this.dataGenerationStrategyClassName = dataGenerationStrategyClassName;
     }
 
-    public String getGenerationClass() {
-        return generationClass;
+    public String getDataGenerationStrategyClassName() {
+        return dataGenerationStrategyClassName;
+    }
+
+    public void setObjectClassName(String objectClassName) {
+        this.objectClassName = objectClassName;
+    }
+
+    public String getObjectClassName() {
+        return objectClassName;
     }
 }

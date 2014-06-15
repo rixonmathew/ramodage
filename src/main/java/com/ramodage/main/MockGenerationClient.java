@@ -39,8 +39,8 @@ public class MockGenerationClient {
         Schema schema = schemaGenerator.generate(properties);
         OptionsGenerator optionsGenerator = new OptionsGenerator();
         Options options = optionsGenerator.generate(properties);
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        fileGenerator.generateFiles();
+        FileGenerator fileGenerator = new FileGenerator();
+        fileGenerator.generateData(schema,options);
         long endTime = System.currentTimeMillis();
         System.out.println("\nTime taken = " + (endTime-startTime)/1000.0f+" seconds");
     }

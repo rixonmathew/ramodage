@@ -11,7 +11,6 @@ import java.util.Date;
  * Date: 20/01/13
  * Time: 9:43 PM
  */
-//TODO Add functionality that can provide random dates based on input constraint and not from files
 public class DateValueProvider extends AbstractValueProvider<Date> {
 
     private IDValueProvider longValueProvider = new IDValueProvider();
@@ -24,6 +23,22 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
     @Override
     public Date randomValue(long minLength, long maxLength) {
         return randomValue();
+    }
+
+    /**
+     * This method is used to convert from String to specific type to avoid casting errors
+     * @param value
+     * @return the value as a specific type
+     */
+    @Override
+    protected Date valueFromString(String value) {
+        return DateUtil.getFormattedDate(value);
+    }
+
+
+    @Override
+    protected Date valueFromString(String value,String formatMask) {
+        return DateUtil.getFormattedDate(value,formatMask);
     }
 
     /**
@@ -53,6 +68,7 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
         return DateUtil.getFormattedDate(randomValue,formatMask);
     }
 
+
     private Date randomValueWithRange(Field field) {
         Date minDate = DateUtil.getFormattedDate(field.getMinValue(),field.getFormatMask());
         Date maxDate = DateUtil.getFormattedDate(field.getMaxValue(),field.getFormatMask());
@@ -66,8 +82,4 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
         return DateUtil.getDateFromLongValue(dateAsLongValue);
     }
 
-    @Override
-    protected Date valueFromString(String value) {
-        return DateUtil.getFormattedDate(value);
-    }
 }

@@ -17,6 +17,15 @@ public class SchemaGenerator {
 
     public Schema generate(Properties properties) {
         String schemaName = properties.getProperty(Constants.SCHEMA);
-        return SchemaParser.parse(schemaName);
+        Schema schema = null;
+        if (schemaName==null) {
+            String schemaContent = properties.getProperty(Constants.SCHEMA_CONTENT);
+            if (schemaContent!=null) {
+                schema = SchemaParser.parseFromContent(schemaContent);
+            }
+        } else {
+            schema = SchemaParser.parseFromFile(schemaName);
+        }
+        return schema;
     }
 }

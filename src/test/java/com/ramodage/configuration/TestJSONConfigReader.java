@@ -23,7 +23,7 @@ public class TestJSONConfigReader {
         final String expectedName = "position";
         final String expectedType = "delimited";
         final String expectedSeparator = ",";
-        Schema schema = SchemaParser.parse(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
+        Schema schema = SchemaParser.parseFromFile(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
         assertNotNull(schema);
         assertThat(schema.getName(), is(expectedName));
         assertThat(schema.getType(), is(expectedType));
@@ -42,7 +42,7 @@ public class TestJSONConfigReader {
         final String CONFIGURATION_FILE_NAME= "instruments.json";
         final String expectedName = "instruments";
         final String expectedType = "fixed-width";
-        Schema schema = SchemaParser.parse(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
+        Schema schema = SchemaParser.parseFromFile(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
         assertNotNull(schema);
         assertThat(schema.getName(),is(expectedName));
         assertThat(schema.getType(), is(expectedType));
@@ -59,7 +59,7 @@ public class TestJSONConfigReader {
         final String CONFIGURATION_FILE_NAME= "rp_positions_fw.json";
         final String expectedName = "portfolio_positions";
         final String expectedType = "fixed-width";
-        Schema schema = SchemaParser.parse(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
+        Schema schema = SchemaParser.parseFromFile(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
         assertNotNull(schema);
         assertThat(schema.getName(),is(expectedName));
         assertThat(schema.getType(), is(expectedType));
@@ -76,7 +76,7 @@ public class TestJSONConfigReader {
         final String CONFIGURATION_FILE_NAME= "quotes.json";
         final String expectedName = "quotes";
         final String expectedType = "fixed-width";
-        Schema schema = SchemaParser.parse(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
+        Schema schema = SchemaParser.parseFromFile(TestUtil.getFullPathForFile(CONFIGURATION_FILE_NAME));
         assertNotNull(schema);
         assertThat(schema.getName(),is(expectedName));
         assertThat(schema.getType(), is(expectedType));

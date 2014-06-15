@@ -1,6 +1,6 @@
 package com.ramodage.util;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 
 /**
@@ -20,12 +20,36 @@ public class TestUtil {
         if (directory.isDirectory()) {
             File[] files = directory.listFiles();
             for (File file : files) {
-             removeDirectory(file);
+                removeDirectory(file);
             }
             directory.delete();
         } else {
             directory.delete();
         }
+    }
+
+    public static String getFileContents(String fileName) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader(getFullPathForFile(fileName)));
+            String line = br.readLine();
+            stringBuilder.append(line);
+            while (line != null) {
+                line = br.readLine();
+                if (line != null)
+                    stringBuilder.append(line);
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return stringBuilder.toString();
+
     }
 }
 

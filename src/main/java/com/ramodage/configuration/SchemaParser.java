@@ -17,18 +17,18 @@ public class SchemaParser {
 
     private static final Logger LOG = Logger.getLogger(SchemaParser.class);
 
-    public static Schema parse(String configurationFileName) {
+    public static Schema parseFromFile(String schemaFileName) {
         Schema schema = null;
         try {
-            String jsonString = readInputFile(configurationFileName);
+            String jsonString = readInputFile(schemaFileName);
             schema = populateAttributes(jsonString);
         } catch (IOException e) {
-            LOG.error("An error occurred while reading the schema file:"+configurationFileName);
+            LOG.error("An error occurred while reading the schema file:"+schemaFileName);
             e.printStackTrace();
         }
         return schema;
-
     }
+
 
     private static String readInputFile(String configurationFileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(configurationFileName));
@@ -51,4 +51,10 @@ public class SchemaParser {
         }
         return JSON.parseObject(jsonString,Schema.class);
     }
+
+    public static Schema parseFromContent(String schemaContent) {
+        Schema schema = populateAttributes(schemaContent);
+        return schema;
+    }
+
 }

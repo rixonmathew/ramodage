@@ -11,27 +11,11 @@ import java.util.Date;
  * Date: 12/2/13
  * Time: 3:31 PM
  */
-public class TimestampValueProvider extends AbstractValueProvider<Date> {
-
-    @Override
-    Date randomValue(long minLength, long maxLength) {
-        return randomValue();
-    }
+public class TimestampValueProvider extends DateValueProvider {
 
     @Override
     public Date randomValue() {
         long newTime = System.currentTimeMillis()-random.nextInt(100000);
         return new Date(newTime);
-    }
-
-    @Override
-    public String randomValueAsString(Field<Date> field) {
-        Date randomValue = super.randomValue(field);
-        return DateUtil.getFormattedDate(randomValue, field.getFormatMask());
-    }
-
-    @Override
-    protected Date valueFromString(String value) {
-        return DateUtil.getFormattedDate(value);
     }
 }

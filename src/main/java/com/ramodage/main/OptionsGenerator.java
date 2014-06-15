@@ -21,6 +21,7 @@ public class OptionsGenerator {
         setOutputDirectory(properties, options);
         setRecordCount(properties, options);
         setNumberOfThreads(properties,options);
+        setObjectClassName(properties,options);
         return options;
     }
 
@@ -70,5 +71,13 @@ public class OptionsGenerator {
         }
         options.setGenerationType(generationType);
     }
+
+    private void setObjectClassName(Properties properties, Options options) {
+        String objectClassName = properties.getProperty(Constants.OBJECT_CLASS_NAME);
+        if (objectClassName!=null) {
+            options.setObjectClassName(objectClassName);
+        }
+    }
+
 
 }

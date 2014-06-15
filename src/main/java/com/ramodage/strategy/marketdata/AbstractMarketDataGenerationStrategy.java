@@ -1,6 +1,7 @@
 package com.ramodage.strategy.marketdata;
 
 import com.ramodage.configuration.Field;
+import com.ramodage.destination.DestinationMetaData;
 import com.ramodage.strategy.AbstractDataGenerationStrategy;
 import com.ramodage.strategy.record.RecordCreationContext;
 import com.ramodage.strategy.record.RecordCreationStrategy;
@@ -26,7 +27,7 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     protected final String SYMBOL = "Symbol";
     protected final String TIMESTAMP = "Timestamp";
     protected Map<String,List<PriceSet>> masterQuotes;
-    protected Map<Long,List<Long>> timestampsPerSplit;
+    protected Map<String,List<Long>> timestampsPerSplit;
     protected Map<String,Field> fieldMap;
     protected long stepValue;
     private long startTimestamp;
@@ -34,11 +35,9 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
 
 
     @Override
-    protected void populateDataForSplit(long split, String taskId) throws IOException {
+    protected void populateDataForSplit(String split, String taskId) throws IOException {
         RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
         List<Long> timestamps = timestampsPerSplit.get(split);
-        File outputFile = filesForSplit.get(split);
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
         Long startTime = timestamps.get(0);
         Long endTime = timestamps.get(1);
         while (startTime<=endTime){
@@ -46,19 +45,18 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
                 for (PriceSet priceSet:masterQuotes.get(symbolName)) {
                     Map<Field,String> overriddenValues = determineOverriddenValues(startTime,symbolName,priceSet);
                     String record = recordCreationStrategy.createRecordWithOverrides(schema,options,0,overriddenValues);
-                    writer.write(record);
-                    writer.newLine();
+                    this.dataDestination.addRecord(split,record);
                 }
             }
             startTime+=stepValue;
             progressReporter.updateThreadProgress(taskId, (endTime-startTime)*1.0f/endTime);
         }
-        writer.close();
     }
 
 
     @Override
     protected void prepareForDataGeneration() {
+        super.prepareForDataGeneration();
         createMasterQuotes();
         initializeTimeStamps();
     }
@@ -90,10 +88,10 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     }
 
     private void populateTimestampsForSplits() {
-        timestampsPerSplit = new HashMap<Long, List<Long>>();
+        timestampsPerSplit = new HashMap<String, List<Long>>();
         for (int i=0;i<options.getNumberOfFileSplits();i++) {
             List<Long> timestamps = getTimestampsPerSplit(i);
-            timestampsPerSplit.put(Long.valueOf(i),timestamps);
+            timestampsPerSplit.put(String.valueOf(i),timestamps);
         }
     }
 

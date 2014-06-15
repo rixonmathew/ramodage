@@ -2,13 +2,14 @@ package com.ramodage.strategy;
 
 import com.ramodage.configuration.Schema;
 import com.ramodage.configuration.Options;
-import com.ramodage.configuration.Schema;
+import com.ramodage.destination.DataDestination;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,34 +23,27 @@ import java.util.concurrent.Executors;
  * Date: 7/3/13
  * Time: 7:06 PM
  */
-public abstract class AbstractDataGenerationStrategy implements FileGenerationStrategy {
+public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenerationStrategy<TYPE> {
 
     protected final Logger LOG = Logger.getLogger(AbstractDataGenerationStrategy.class);
     protected Schema schema;
     protected Options options;
-    protected File outputDirectory;
-    protected final Map<Long, File> filesForSplit;
+    protected DataDestination dataDestination;
     protected ProgressReporter progressReporter;
     protected PrintStream progressDestination;
 
     public AbstractDataGenerationStrategy(){
-      filesForSplit = new HashMap<Long, File>();
       progressDestination = System.out;
     }
 
     @Override
-    public void generateFileData(Schema schema, Options options) {
+    public void generateData(Schema schema, Options options,DataDestination<TYPE> dataDestination) {
         this.schema = schema;
         this.options = options;
-        try {
-            prepareForDataGeneration();
-            generateOutputDirectories();
-            createFilesForSplits();
-            populateDataUsingWorkers();
-            cleanup();
-        } catch (IOException e) {
-            LOG.error("An error occurred while creating files for splits");
-        }
+        this.dataDestination = dataDestination;
+        prepareForDataGeneration();
+        populateDataUsingWorkers();
+        cleanup();
     }
 
     public PrintStream getProgressDestination() {
@@ -66,7 +60,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      * before data generation. Subclasses can override for specific behaviour
      */
     protected void prepareForDataGeneration() {
-
+       dataDestination.prepareForDataGeneration();
     }
 
     /**
@@ -74,33 +68,16 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      * after data generation.Subclasses can override for specific behaviour
      */
     protected  void cleanup() {
-
+        dataDestination.clear();
     }
 
-    protected void generateOutputDirectories() {
-        if (options.getOutputDirectory() == null || options.getOutputDirectory().isEmpty()) {
-            String name = "output_" + System.currentTimeMillis();
-            outputDirectory = new File(name);
-        } else {
-            outputDirectory = new File(options.getOutputDirectory());
-        }
-        outputDirectory.mkdirs();
-    }
 
-    protected void createFilesForSplits() throws IOException {
-        String fileName = schema.getName() + "-part";
-        for (int split = 0; split < options.getNumberOfFileSplits(); split++) {
-            String splitFileName = fileName + "-" + split;
-            File outputFile = new File(outputDirectory.getAbsolutePath() + File.separator + splitFileName);
-            outputFile.createNewFile();
-            filesForSplit.put((long) split, outputFile);
-        }
-    }
 
     protected void populateDataUsingWorkers() {
         progressReporter = new ProgressReporter();
         ExecutorService executorService = Executors.newFixedThreadPool(options.getNumberOfThreads());
-        for (Long split : filesForSplit.keySet()) {
+        List<String> splitNames = dataDestination.getDestinationMetaData().getSplitNames();
+        for (String split : splitNames) {
             Worker worker = new Worker(split,progressReporter);
             executorService.execute(worker);
         }
@@ -137,7 +114,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      * @param split the split for which data is to be generated
      * @param taskId the id of the task for which data is being generated
      */
-    protected abstract void populateDataForSplit(long split, String taskId) throws IOException;
+    protected abstract void populateDataForSplit(String split, String taskId) throws IOException;
 
     public class ProgressReporter{
         private final Map<String,Float> taskProgress = new HashMap<String, Float>();
@@ -162,11 +139,11 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
     }
 
     class Worker implements Runnable {
-        final Long split;
+        final String split;
         final ProgressReporter progressReporter;
         final String taskId;
 
-        Worker(Long split, ProgressReporter progressReporter) {
+        Worker(String split, ProgressReporter progressReporter) {
             this.progressReporter = progressReporter;
             this.split = split;
             this.taskId = "task:" + split;

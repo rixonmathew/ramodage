@@ -2,7 +2,6 @@ package com.ramodage.generator;
 
 import com.ramodage.configuration.Schema;
 import com.ramodage.configuration.SchemaParser;
-import com.ramodage.generator.FileGenerator;
 import com.ramodage.configuration.Options;
 import com.ramodage.util.TestUtil;
 import org.junit.After;
@@ -32,11 +31,11 @@ public class TestQuotesGeneration {
     @Test
     public void testQuoteDataGenerationStrategy() {
         String quotesSchemaName = "quotes.json";
-        Schema schema = SchemaParser.parse(TestUtil.getFullPathForFile(quotesSchemaName));
+        Schema schema = SchemaParser.parseFromFile(TestUtil.getFullPathForFile(quotesSchemaName));
         String outputDirectory = "mock_quotes";
         Options options = createMockOptions(outputDirectory,"class","com.ramodage.strategy.marketdata.QuoteDataGenerationStrategy");
-        FileGenerator fileGenerator = new FileGenerator(options,schema);
-        assertFiles(options,fileGenerator);
+        FileGenerator fileGenerator = new FileGenerator();
+        assertFiles(schema,options,fileGenerator);
 
     }
 
@@ -48,14 +47,14 @@ public class TestQuotesGeneration {
     private Options createMockOptions(final String outputDirectory, String generationType,String generationClass) {
         Options options = new Options();
         options.setGenerationType(generationType);
-        options.setGenerationClass(generationClass);
+        options.setDataGenerationStrategyClassName(generationClass);
         options.setNumberOfFileSplits(3);
         options.setNumberOfRecordsPerSplit(5000);
         options.setOutputDirectory(outputDirectory);
         return options;
     }
-    private void assertFiles(Options options, FileGenerator fileGenerator) {
-        fileGenerator.generateFiles();
+    private void assertFiles(Schema schema,Options options, FileGenerator fileGenerator) {
+        fileGenerator.generateData(schema,options);
         File file = new File(options.getOutputDirectory());
         directory = file;
         assertThat(file.isDirectory(), is(true));

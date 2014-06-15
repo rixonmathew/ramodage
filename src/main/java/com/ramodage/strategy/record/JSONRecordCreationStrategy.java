@@ -13,7 +13,7 @@ import java.util.Map;
  * Date: 12/4/13
  * Time: 8:46 PM
  */
-public class JSONRecordCreationStrategy extends AbstractRecordCreationStrategy {
+public class JSONRecordCreationStrategy<TYPE> extends AbstractRecordCreationStrategy<TYPE> {
     @Override
     public String createRecordWithOverrides(Schema schema, Options options, long recordCounter, Map<Field, String> overriddenFields) {
         StringBuilder record = new StringBuilder();

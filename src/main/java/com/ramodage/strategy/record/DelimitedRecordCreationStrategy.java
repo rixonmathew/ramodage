@@ -17,7 +17,7 @@ import java.util.Map;
  * Time: 10:39 AM
  * This strategy creates records when the record is delimited
  */
-public class DelimitedRecordCreationStrategy extends AbstractRecordCreationStrategy {
+public class DelimitedRecordCreationStrategy<TYPE> extends AbstractRecordCreationStrategy<TYPE> {
 
     @Override
     public String createRecordWithOverrides(Schema schema, Options options, long recordCounter, Map<Field, String> overriddenFields) {
