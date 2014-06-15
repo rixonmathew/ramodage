@@ -13,6 +13,9 @@ import java.util.Date;
  */
 //TODO Add functionality that can provide random dates based on input constraint and not from files
 public class DateValueProvider extends AbstractValueProvider<Date> {
+
+    private IDValueProvider longValueProvider = new IDValueProvider();
+
     @Override
     public Date randomValue() {
         return DateProvider.randomDate();
@@ -23,11 +26,44 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
         return randomValue();
     }
 
+    /**
+     * This method will generate random value based on minimum and maximum value specified in the range.
+     * The default implementation in the Abstract class will simply return either min or max value.
+     * This needs to be overridden in the subclasses in case a different behavior is required
+     *
+     * @param minValue the starting value in the range
+     * @param maxValue the ending value in the range
+     * @return the random value
+     */
+    @Override
+    Date randomValueFromRange(Date minValue, Date maxValue) {
+        return getDateInRange(minValue,maxValue);
+    }
+
     @Override
     public String randomValueAsString(Field<Date> field) {
-        Date randomValue = randomValue();
+        Date randomValue;
+        if (field.getMinValue()!=null || field.getMaxValue()!=null) {
+           randomValue = randomValueWithRange(field);
+        } else {
+           randomValue = randomValue();
+        }
+
         String formatMask = field.getFormatMask()!=null?field.getFormatMask():"YmdHMS:L:N";
         return DateUtil.getFormattedDate(randomValue,formatMask);
+    }
+
+    private Date randomValueWithRange(Field field) {
+        Date minDate = DateUtil.getFormattedDate(field.getMinValue(),field.getFormatMask());
+        Date maxDate = DateUtil.getFormattedDate(field.getMaxValue(),field.getFormatMask());
+        return getDateInRange(minDate, maxDate);
+    }
+
+    private Date getDateInRange(Date minDate, Date maxDate) {
+        long minValue = minDate.getTime();
+        long maxValue = maxDate.getTime();
+        long dateAsLongValue = longValueProvider.randomValueFromRange(minValue,maxValue);
+        return DateUtil.getDateFromLongValue(dateAsLongValue);
     }
 
     @Override

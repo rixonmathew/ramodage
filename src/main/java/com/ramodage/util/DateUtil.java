@@ -19,9 +19,11 @@ public class DateUtil {
     private final static String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
     private static final Map<String,DateFormat> formatters = new HashMap<String,DateFormat>();
 
-    public synchronized static Date getFormattedDate(String dateString) {
+    public synchronized static Date getFormattedDate(String dateString,String dateFormatMask) {
         try {
-            DateFormat dateFormat = getFormatter(DEFAULT_DATE_FORMAT);
+            if (dateFormatMask==null)
+                dateFormatMask=DEFAULT_DATE_FORMAT;
+            DateFormat dateFormat = getFormatter(dateFormatMask);
             return dateFormat.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -30,6 +32,11 @@ public class DateUtil {
             e.printStackTrace();
             throw new IllegalArgumentException("Invalid date string " + dateString);
         }
+
+    }
+
+    public synchronized static Date getFormattedDate(String dateString) {
+        return getFormattedDate(dateString,null);
     }
 
     public synchronized static String getFormattedDate(Date date, String formatMask) {
@@ -49,11 +56,9 @@ public class DateUtil {
         }
 
         return dateFormatter;
-        /*
-        if (formatMask==null){
-            return new SimpleDateFormat(DEFAULT_DATE_FORMAT);
-        }
-        return new SimpleDateFormat(formatMask);
-        */
+    }
+
+    public static Date getDateFromLongValue(long dateAsLongValue) {
+        return new Date(dateAsLongValue);
     }
 }

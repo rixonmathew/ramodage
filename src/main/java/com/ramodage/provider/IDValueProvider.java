@@ -19,6 +19,20 @@ public class IDValueProvider extends AbstractValueProvider<Long> {
         return Long.valueOf(value);
     }
 
+    /**
+     * This method will generate random value based on minimum and maximum value specified in the range.
+     * The default implementation in the Abstract class will simply return either min or max value.
+     * This needs to be overridden in the subclasses in case a different behavior is required
+     *
+     * @param minValue the starting value in the range
+     * @param maxValue the ending value in the range
+     * @return the random value
+     */
+    @Override
+    Long randomValueFromRange(Long minValue, Long maxValue) {
+        return minValue+ (long)(Math.random()*(maxValue-minValue));
+    }
+
     @Override
     public Long randomValue(long minLength, long maxLength) {
         long value;

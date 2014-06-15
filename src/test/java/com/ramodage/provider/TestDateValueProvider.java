@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.number.OrderingComparison.*;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -68,11 +70,25 @@ public class TestDateValueProvider {
         }
     }
 
+    @Test
+    public void testDateValueBasedOnConstraints() {
+        Field<Date> dateField = mockField();
+        Date minDate = DateUtil.getFormattedDate(dateField.getMinValue(),dateField.getFormatMask());
+        Date maxDate = DateUtil.getFormattedDate(dateField.getMaxValue(),dateField.getFormatMask());
+        for (int i=0;i<10000;i++) {
+            Date date = dateValueProvider.randomValueFromRange(minDate,maxDate);
+            assertThat("Date is less than minDate :"+date,date,greaterThanOrEqualTo(minDate));
+            assertThat("Date is more than maxDate :"+date,date,lessThanOrEqualTo(maxDate));
+        }
+    }
+
     private Field<Date> mockField() {
         Field<Date> dateField = new Field<Date>();
         dateField.setType("date");
-        dateField.setFormatMask("YYYYMMDD");
+        dateField.setFormatMask("yyyyMMdd");
         dateField.setFixedLength(8);
+        dateField.setMinValue("20000101");
+        dateField.setMaxValue("20141231");
         return dateField;
     }
 }

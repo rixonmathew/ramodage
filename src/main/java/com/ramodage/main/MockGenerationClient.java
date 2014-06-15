@@ -21,8 +21,6 @@ import java.util.Properties;
  */
 public class MockGenerationClient {
 
-    //TODO refactor this into a launcher class. main should be calling the launcher.
-
     public static void main(String[] args) throws IOException {
         if(args.length!=2) {
             System.err.println("Usage java -jar ramodage --file <properties.file>");
