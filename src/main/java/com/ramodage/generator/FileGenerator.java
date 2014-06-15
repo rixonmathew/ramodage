@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
  */
 public class FileGenerator {
 
-    //TODO Strategy has become very heavy. Can some of the responsibilities of the strategy class be broken out into the generator?
     private final Options options;
     private final Schema schema;
     private FileGenerationStrategy strategy;

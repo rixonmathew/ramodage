@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -29,9 +30,11 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
     protected File outputDirectory;
     protected final Map<Long, File> filesForSplit;
     protected ProgressReporter progressReporter;
+    protected PrintStream progressDestination;
 
     public AbstractDataGenerationStrategy(){
       filesForSplit = new HashMap<Long, File>();
+      progressDestination = System.out;
     }
 
     @Override
@@ -48,6 +51,15 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
             LOG.error("An error occurred while creating files for splits");
         }
     }
+
+    public PrintStream getProgressDestination() {
+        return progressDestination;
+    }
+
+    public void setProgressDestination(PrintStream progressDestination) {
+        this.progressDestination = progressDestination;
+    }
+
 
     /**
      * This method can be used by specific strategies to do any pre-processing
@@ -101,21 +113,20 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
             }
         }
         updateProgress(100.0d);
-        System.out.println();
+        progressDestination.println();
     }
 
     private void updateProgress(double progressPercentage) {
         final int width = 90; // progress bar width in chars
-        //TODO instead of directly writing to System.out have the writer as a dependency
-        System.out.print("\r[");
+        progressDestination.print("\r[");
         int i = 0;
         for (; i <= (int)(progressPercentage*width*0.01f); i++) {
-            System.out.print("=");
+            progressDestination.print("=");
         }
         for (; i < width; i++) {
-            System.out.print(" ");
+            progressDestination.print(" ");
         }
-        System.out.print("] ==>" + progressPercentage + "%");
+        progressDestination.print("] ==>" + progressPercentage + "%");
     }
 
     /**

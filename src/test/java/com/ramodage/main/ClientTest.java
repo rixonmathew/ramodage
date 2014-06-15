@@ -4,11 +4,10 @@ import com.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.fail;
 
 /**
@@ -29,6 +28,27 @@ public class ClientTest {
     public void testDriverWithMinOptions() {
         String[] args = mockArguments(TestUtil.getFullPathForFile("minProperties.properties"));
         executeMain(args);
+    }
+
+
+    @Test
+    public void testRecordDataGeneration() {
+        //This method is used for testing the record based data generation
+        Ramodage ramodage = DataGenerationFactory.getInMemoryDataGenerator();
+
+        Properties properties = createMockProperties();
+        RandomData randomData =  ramodage.generateData(properties);
+        assertNotNull(randomData);
+    }
+
+    private Properties createMockProperties() {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(TestUtil.getFullPathForFile("mockProperties.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
     }
 
     @After

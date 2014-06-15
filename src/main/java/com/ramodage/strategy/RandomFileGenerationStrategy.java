@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 public class RandomFileGenerationStrategy extends AbstractDataGenerationStrategy {
 
+
     @Override
     protected void populateDataForSplit(long split, String taskId) throws IOException {
         File outputFile = filesForSplit.get(split);
