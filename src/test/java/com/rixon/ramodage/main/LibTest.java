@@ -45,6 +45,10 @@ public class LibTest {
        assertNotNull(allRecords);
        int expectedSize=500;
        assertThat("Size is not as expected",allRecords.size(),is(expectedSize));
+       for (int i=0;i<100;i++) {
+           DailyTrade dailyTrade = randomData.getRandomRecord();
+           assertNotNull(dailyTrade);
+       }
 //       for (DailyTrade dailyTrade:allRecords) {
 //           System.out.println("dailyTrade = " + dailyTrade);
 //       }
