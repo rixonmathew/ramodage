@@ -25,6 +25,9 @@
         <module name="ramodage" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ramodage" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 

@@ -34,15 +34,6 @@ public class ClientTest {
     }
 
 
-    @Test
-    public void testRecordDataGeneration() {
-        //This method is used for testing the record based data generation
-        Ramodage ramodage = RamodageFactory.getWithDefaultOptions();
-        Properties properties = createMockProperties();
-        RandomData randomData =  ramodage.generateData(properties);
-        assertNotNull(randomData);
-    }
-
     private Properties createMockProperties() {
         Properties properties = new Properties();
         try {

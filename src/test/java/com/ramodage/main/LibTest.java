@@ -45,9 +45,9 @@ public class LibTest {
        assertNotNull(allRecords);
        int expectedSize=500;
        assertThat("Size is not as expected",allRecords.size(),is(expectedSize));
-       for (DailyTrade dailyTrade:allRecords) {
-           System.out.println("dailyTrade = " + dailyTrade);
-       }
+//       for (DailyTrade dailyTrade:allRecords) {
+//           System.out.println("dailyTrade = " + dailyTrade);
+//       }
     }
 
     private Properties createProperties() {

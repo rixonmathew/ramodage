@@ -52,7 +52,7 @@ public class TestTimestampValueProvider {
         Field<Date> dateField = mockFieldForMillisecond();
         for (int i=0;i<1000;i++){
             String timeStampValue = timeStampValueProvider.randomValueAsString(dateField);
-            System.out.println("timeStampValue = " + timeStampValue);
+            //System.out.println("timeStampValue = " + timeStampValue);
         }
 
     }
