@@ -18,14 +18,12 @@ import java.util.Properties;
  */
 public class Ramodage {
 
-
     public <TYPE> RandomData<TYPE> generateData(Properties properties) {
         PropertyValidator propertyValidator = new PropertyValidator();
         boolean arePropertiesValid = propertyValidator.arePropertiesValid(properties);
         if(!arePropertiesValid) {
             throw new IllegalArgumentException("All required properties are not specified for data generation");
         }
-
         OptionsGenerator optionsGenerator = new OptionsGenerator();
         Options options =  optionsGenerator.generate(properties);
         SchemaGenerator schemaGenerator = new SchemaGenerator();

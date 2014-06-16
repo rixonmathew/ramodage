@@ -44,4 +44,18 @@ public class IntegerValueProvider extends AbstractValueProvider<Integer> {
     public Integer randomValue() {
         return Math.abs(random.nextInt());
     }
+
+    /**
+     * This method will generate a random value which begins with a given prefix.The default implementation
+     * ignores the prefix. Specific value providers can override if required
+     *
+     * @param minLength the min length of the random value. a value of -1 means that length is ignored
+     * @param maxLength the max length of the random value. a value of -1 means that length is ignored
+     * @param prefix    value to be prefixed
+     * @return the random value
+     */
+    @Override
+    Integer randomValueWithPrefix(long minLength, long maxLength, Integer prefix) {
+        return randomValue(minLength, maxLength);
+    }
 }

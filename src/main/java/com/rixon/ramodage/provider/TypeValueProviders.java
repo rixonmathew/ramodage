@@ -16,7 +16,8 @@ public class TypeValueProviders {
     private static final Map<String,ValueProvider> valueProviders;
 
     static {
-        valueProviders = new HashMap<String, ValueProvider>();
+        valueProviders = new HashMap<>();
+//        valueProviders.put("int",new IntegerValueProvider());
         valueProviders.put("int",new IDValueProvider());
         valueProviders.put("String",new StringValueProvider());
         valueProviders.put("Date",new DateValueProvider());
