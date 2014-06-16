@@ -55,6 +55,7 @@ public class LibTest {
         properties.setProperty(Constants.SCHEMA_CONTENT,getJSONRepresentationOfSchema());
         properties.setProperty(Constants.GENERATION_TYPE,"random");
         properties.setProperty(Constants.OBJECT_CLASS_NAME,DailyTrade.class.getName());
+        properties.setProperty(Constants.DESTINATION_TYPE,"IN_MEMORY");
         return properties;
     }
 

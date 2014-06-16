@@ -22,13 +22,12 @@ public class ReflectionUtils {
             TYPE objectInstance = objectClass.newInstance();
             return objectInstance;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Class not found "+objectClassName,e);
         } catch (InstantiationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Class could not be instantiated "+objectClassName,e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Class could not be accessed "+objectClassName,e);
         }
-        return null;
     }
 
     public static <TYPE> void setValue(TYPE object, String value, Field field) {
@@ -38,11 +37,11 @@ public class ReflectionUtils {
             Method methodToInvoke = objectClass.getMethod(methodName,new Class[]{getClassForField(field)});
             methodToInvoke.invoke(object,getValueCastedToType(field,value));
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Method not found "+methodName,e);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Could not invoke method "+methodName,e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new IllegalArgumentException("Could not access "+methodName,e);
         }
     }
 
@@ -84,4 +83,12 @@ public class ReflectionUtils {
 
     }
 
+    public static boolean isValidClass(String objectClassName) {
+        boolean valid = true;
+        Object object = ReflectionUtils.createObject(objectClassName);
+        if (object==null){
+            valid=false;
+        }
+        return valid;
+    }
 }

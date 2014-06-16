@@ -20,9 +20,6 @@ import org.apache.log4j.Logger;
 public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
 
     private final Logger LOG = Logger.getLogger(FileGenerator.class);
-    private DataDestination dataDestination;
-
-
     /**
      * This method will generate data based on the schema and options
      *
@@ -32,10 +29,8 @@ public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
      */
     @Override
     public RandomData<TYPE> generateData(Schema schema, Options options) {
-        dataDestination = new InMemoryDestination(schema,options);
-        DataGenerationStrategy strategy;
-        //TODO add code to create strategy from class
-        strategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.IN_MEMORY.getDescription());
+        DataDestination<TYPE> dataDestination = new InMemoryDestination(schema, options);
+        DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.IN_MEMORY.getDescription());
         strategy.generateData(schema,options,dataDestination);
         return dataDestination.getRandomData();
     }

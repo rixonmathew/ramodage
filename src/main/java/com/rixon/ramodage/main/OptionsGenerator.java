@@ -1,6 +1,7 @@
 package com.rixon.ramodage.main;
 
 import com.rixon.ramodage.configuration.Options;
+import com.rixon.ramodage.destination.DestinationType;
 import com.rixon.ramodage.util.Constants;
 
 import java.util.Properties;
@@ -22,6 +23,7 @@ public class OptionsGenerator {
         setRecordCount(properties, options);
         setNumberOfThreads(properties,options);
         setObjectClassName(properties,options);
+        setDestinationType(properties,options);
         return options;
     }
 
@@ -79,5 +81,9 @@ public class OptionsGenerator {
         }
     }
 
+    private void setDestinationType(Properties properties, Options options) {
+        String destination = properties.getProperty(Constants.DESTINATION_TYPE);
+        options.setDestinationType(DestinationType.valueOf(destination));
+    }
 
 }

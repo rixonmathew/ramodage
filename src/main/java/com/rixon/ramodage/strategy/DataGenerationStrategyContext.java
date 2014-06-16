@@ -32,6 +32,23 @@ public class DataGenerationStrategyContext {
         return strategies.get(key);
     }
 
+    public static DataGenerationStrategy strategyFromClass(String className) {
+        DataGenerationStrategy strategy = null;
+        try {
+            strategy = (DataGenerationStrategy)Class.forName(className).newInstance();
+        } catch (InstantiationException e) {
+            LOG.error("Error instantiating class:"+className);
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            LOG.error("Error accessing class:"+className);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            LOG.error("Invalid class specified:"+className);
+            e.printStackTrace();
+        }
+        return strategy;
+    }
+
     private static String createKey(String dataGenerationType, String destinationType) {
         return dataGenerationType+":"+destinationType;
     }

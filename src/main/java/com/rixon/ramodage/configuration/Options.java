@@ -1,5 +1,7 @@
 package com.rixon.ramodage.configuration;
 
+import com.rixon.ramodage.destination.DestinationType;
+
 /**
  * User: rixonmathew
  * Date: 20/01/13
@@ -16,6 +18,7 @@ public class Options {
     private int numberOfThreads;
     private String dataGenerationStrategyClassName;
     private String objectClassName;
+    private DestinationType destinationType;
 
     public Options() {
         this.generationType = DEFAULT_GENERATION_TYPE;
@@ -79,5 +82,13 @@ public class Options {
 
     public String getObjectClassName() {
         return objectClassName;
+    }
+
+    public DestinationType getDestinationType() {
+        return destinationType;
+    }
+
+    public void setDestinationType(DestinationType destinationType) {
+        this.destinationType = destinationType;
     }
 }
