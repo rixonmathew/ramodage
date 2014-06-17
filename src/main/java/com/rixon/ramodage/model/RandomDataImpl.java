@@ -1,5 +1,9 @@
 package com.rixon.ramodage.model;
 
+import com.rixon.ramodage.strategy.ProgressReporter;
+
+import java.io.PrintStream;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +16,10 @@ import java.util.Random;
 public class RandomDataImpl<TYPE> implements RandomData<TYPE> {
 
     private List<TYPE> records;
+    private StringWriter progressDestination;
     private Random random = new Random();
+    private boolean dataGenerationComplete=false;
+    private ProgressReporter progressReporter;
 
     public RandomDataImpl(List<TYPE> records) {
         this.records = records;
@@ -43,4 +50,44 @@ public class RandomDataImpl<TYPE> implements RandomData<TYPE> {
         TYPE record = records.get(random.nextInt(records.size()));
         return record;
     }
+
+    /**
+     * This flag can be queried to indicate that data generation is completed
+     *
+     * @return true if data generation is complete else false
+     */
+    @Override
+    public boolean isDataGenerationComplete() {
+        return dataGenerationComplete;
+    }
+
+    @Override
+    public void setDataGenerationComplete(boolean dataGenerationComplete) {
+        this.dataGenerationComplete = dataGenerationComplete;
+    }
+
+    /**
+     * This method is used to show the progress;
+     *
+     * @return a string indicating the progress;
+     */
+    @Override
+    public String getProgress() {
+        if (progressReporter==null)
+            return "0.0";
+        return String.format("0.2f",progressReporter.overallProgress());
+    }
+
+    /**
+     * This method will inject the progress reporter to RandomData to be able to
+     * report the progress
+     *
+     * @param progressReporter
+     */
+    @Override
+    public synchronized void setProgressReporter(ProgressReporter progressReporter) {
+        this.progressReporter = progressReporter;
+    }
+
+
 }

@@ -3,13 +3,13 @@ package com.rixon.ramodage.strategy;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.destination.DataDestination;
+import com.rixon.ramodage.model.DataGenerationStatus;
+import com.rixon.ramodage.model.DataGenerationStatusImpl;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
  * The base class for DataGenerationStrategy. This class encapsulates all common activities as part of data generation.
  * This class provides a framework for distributing data generation among multiple threads. The work to be done in
  * each thread is to be implemented by specific strategies.
- * Created with IntelliJ IDEA.
  * User: rixon
  * Date: 7/3/13
  * Time: 7:06 PM
@@ -41,18 +40,39 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
         this.options = options;
         this.dataDestination = dataDestination;
         prepareForDataGeneration();
-        populateDataUsingWorkers();
+        populateDataUsingWorkers(null);
         cleanup();
     }
 
-    public PrintStream getProgressDestination() {
-        return progressDestination;
+    /**
+     * This method is responsible for generating the data required for the files as per the strategy
+     * in a non blocking manner.
+     *
+     * @param schema          the schema that represents the structure of the file
+     * @param options         options required for generating file
+     * @param dataDestination represents the destination where the generated data should be placed
+     */
+    @Override
+    public DataGenerationStatus<TYPE> generateDataAsynchronously(final Schema schema, final Options options, final DataDestination<TYPE> dataDestination) {
+        final DataGenerationStatus<TYPE> dataGenerationStatus = new DataGenerationStatusImpl<>();
+        progressReporter = new ProgressReporter();
+        dataGenerationStatus.setProgressReporter(progressReporter);
+        dataGenerationStatus.setDataDestination(dataDestination);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                AbstractDataGenerationStrategy.this.schema = schema;
+                AbstractDataGenerationStrategy.this.options = options;
+                AbstractDataGenerationStrategy.this.dataDestination = dataDestination;
+                prepareForDataGeneration();
+                populateDataUsingWorkers(dataGenerationStatus);
+                cleanup();
+            }
+        });
+        executorService.shutdown();
+        return dataGenerationStatus;
     }
-
-    public void setProgressDestination(PrintStream progressDestination) {
-        this.progressDestination = progressDestination;
-    }
-
 
     /**
      * This method can be used by specific strategies to do any pre-processing
@@ -71,9 +91,9 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
     }
 
 
+    protected void populateDataUsingWorkers(DataGenerationStatus<TYPE> dataGenerationStatus) {
 
-    protected void populateDataUsingWorkers() {
-        progressReporter = new ProgressReporter();
+
         ExecutorService executorService = Executors.newFixedThreadPool(options.getNumberOfThreads());
         List<String> splitNames = dataDestination.getDestinationMetaData().getSplitNames();
         for (String split : splitNames) {
@@ -89,6 +109,9 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
             }
         }
         updateProgress(100.0d);
+        if(dataGenerationStatus!=null){
+            dataGenerationStatus.setDatatGenerationComplete(true);
+        }
         progressDestination.println();
     }
 
@@ -114,28 +137,6 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
      * @param taskId the id of the task for which data is being generated
      */
     protected abstract void populateDataForSplit(String split, String taskId) throws IOException;
-
-    public class ProgressReporter{
-        private final Map<String,Float> taskProgress = new HashMap<String, Float>();
-
-        public synchronized void updateThreadProgress(String taskId,Float progress) {
-            taskProgress.put(taskId,progress);
-        }
-
-        synchronized float overallProgress() {
-            int total=0;
-            int count=0;
-            for(Float value:taskProgress.values()) {
-                total+=value;
-                count++;
-            }
-
-            float overallProgress=0;
-            if(count>0)
-                overallProgress=total/count;
-            return overallProgress;
-        }
-    }
 
     class Worker implements Runnable {
         final String split;
