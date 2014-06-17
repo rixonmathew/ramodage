@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -40,8 +41,8 @@ public class TestBigDecimalValueProvider {
             BigDecimal randomValue = valueProvider.randomValue(numberField);
             int compareToMin = randomValue.compareTo(minValue);
             int compareToMax = randomValue.compareTo(maxValue);
-            assertThat(Integer.valueOf(compareToMin),is(1));
-            assertThat(Integer.valueOf(compareToMax),is(-1));
+            assertThat(compareToMin,is(1));
+            assertThat(compareToMax,is(-1));
             //System.out.println("randomValue = " + randomValue);
         }
     }
@@ -51,12 +52,13 @@ public class TestBigDecimalValueProvider {
         Field<BigDecimal> numberField = mockField();
         for (int i=0;i<1000;i++) {
             String stringValue = valueProvider.randomValueAsString(numberField);
+            assertNotNull(stringValue);
             //System.out.println("stringValue = " + stringValue);
         }
     }
 
     private Field<BigDecimal> mockField() {
-        Field<BigDecimal> numberField = new Field<BigDecimal>();
+        Field<BigDecimal> numberField = new Field<>();
         numberField.setFixedLength(25);
         numberField.setMinValue("1000");
         numberField.setMaxValue("10000000000000000");

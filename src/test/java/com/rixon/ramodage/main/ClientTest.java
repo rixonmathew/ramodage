@@ -4,10 +4,12 @@ import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.Properties;
 
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.fail;
 
 /**
@@ -47,9 +49,7 @@ public class ClientTest {
         File[] files = file.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if (name.startsWith("output") || name.endsWith("output"))
-                    return true;
-                return false;
+                return name.startsWith("output") || name.endsWith("output");
             }
         });
         for (File file1:files){

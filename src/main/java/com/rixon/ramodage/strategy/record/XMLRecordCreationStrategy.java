@@ -19,17 +19,16 @@ public class XMLRecordCreationStrategy<TYPE> extends AbstractRecordCreationStrat
         StringBuilder record = new StringBuilder();
         List<Field> fields = schema.getFields();
         if (fields.size()==0) {
-            record.append("<"+schema.getName()+"/>");
+            record.append("<").append(schema.getName()).append("/>");
             return record.toString();
         }
-        record.append("<"+schema.getName()+">\n");
-        for (int j = 0; j < fields.size(); j++) {
-            Field field = fields.get(j);
-            String value = determineFieldValue(field,overriddenFields);
-            String nodeValue = "\t<"+field.getName()+">"+value+"</"+field.getName()+">\n";
+        record.append("<").append(schema.getName()).append(">\n");
+        for (Field field : fields) {
+            String value = determineFieldValue(field, overriddenFields);
+            String nodeValue = "\t<" + field.getName() + ">" + value + "</" + field.getName() + ">\n";
             record.append(nodeValue);
         }
-        record.append("</"+schema.getName()+">");
+        record.append("</").append(schema.getName()).append(">");
         return record.toString();
     }
 }

@@ -2,7 +2,6 @@ package com.rixon.ramodage.main;
 
 import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
-import com.rixon.ramodage.destination.DestinationType;
 import com.rixon.ramodage.factory.DataGenerationFactory;
 import com.rixon.ramodage.generator.DataGenerator;
 import com.rixon.ramodage.model.DataGenerationStatus;
@@ -24,8 +23,7 @@ public class Ramodage {
         Options options = generateOptions(properties);
         Schema schema = generateSchema(properties);
         DataGenerator<TYPE> dataGenerator = DataGenerationFactory.getDataGeneratorFor(options.getDestinationType());
-        RandomData<TYPE> randomData = dataGenerator.generateData(schema,options);
-        return randomData;
+        return dataGenerator.generateData(schema,options);
     }
 
     public <TYPE> DataGenerationStatus<TYPE> generateDataAsynchronously(Properties properties) {
@@ -33,8 +31,7 @@ public class Ramodage {
         Options options = generateOptions(properties);
         Schema schema = generateSchema(properties);
         DataGenerator<TYPE> dataGenerator = DataGenerationFactory.getDataGeneratorFor(options.getDestinationType());
-        DataGenerationStatus<TYPE> dataGenerationStatus = dataGenerator.generateDataAsynchronously(schema, options);
-        return dataGenerationStatus;
+        return dataGenerator.generateDataAsynchronously(schema, options);
 
     }
 

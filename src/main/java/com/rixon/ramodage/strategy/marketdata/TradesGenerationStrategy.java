@@ -21,7 +21,7 @@ public class TradesGenerationStrategy extends AbstractMarketDataGenerationStrate
 
     @Override
     protected Map<Field, String> determineOverriddenValues(Long startTime, String symbolName, PriceSet priceSet) {
-        Map<Field,String> overriddenValues = new HashMap<Field, String>();
+        Map<Field,String> overriddenValues = new HashMap<>();
         Field symbolField = fieldMap.get(SYMBOL);
         overriddenValues.put(symbolField,symbolName);
         Field timestampField = fieldMap.get(TIMESTAMP);

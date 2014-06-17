@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -70,6 +71,7 @@ public class TestIDValueProvider {
         int expectedLength=9;
         for (int i=0;i<100;i++) {
             Long value = valueProvider.randomValueWithPrefix(expectedLength,expectedLength,prefix);
+            assertNotNull(value);
             //System.out.println("value = " + value);
         }
     }

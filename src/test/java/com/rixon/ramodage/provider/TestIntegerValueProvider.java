@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -33,6 +34,7 @@ public class TestIntegerValueProvider {
     public void testRandomValue() {
         for (int i=0;i<100;i++){
             int randomValue = integerValueProvider.randomValue();
+            assertNotNull(randomValue);
         }
     }
 

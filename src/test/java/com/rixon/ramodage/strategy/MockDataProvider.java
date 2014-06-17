@@ -14,8 +14,8 @@ public class MockDataProvider {
         Schema schema = new Schema();
         schema.setName("position");
         schema.setType("xml");
-        List<Field> fields = new ArrayList<Field>();
-        Field<String> name = new Field<String>();
+        List<Field> fields = new ArrayList<>();
+        Field<String> name = new Field<>();
         name.setType("String");
         name.setName("name");
         name.setMinLength(40);

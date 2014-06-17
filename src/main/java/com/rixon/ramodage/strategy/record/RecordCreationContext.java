@@ -20,7 +20,7 @@ public class RecordCreationContext {
     private static final String JSON = "json";
 
     static {
-        recordCreationStrategies = new HashMap<String, RecordCreationStrategy>();
+        recordCreationStrategies = new HashMap<>();
         recordCreationStrategies.put(DELIMITED,new DelimitedRecordCreationStrategy());
         recordCreationStrategies.put(FIXED_WIDTH,new FixedWidthRecordCreationStrategy());
         recordCreationStrategies.put(XML,new XMLRecordCreationStrategy());

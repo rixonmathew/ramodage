@@ -1,8 +1,8 @@
 package com.rixon.ramodage.main;
 
+import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.generator.FileGenerator;
-import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.validator.PropertyValidator;
 
 import java.io.FileReader;

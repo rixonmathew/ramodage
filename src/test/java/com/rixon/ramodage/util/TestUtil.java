@@ -1,6 +1,9 @@
 package com.rixon.ramodage.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -19,6 +22,8 @@ public class TestUtil {
     public static void removeDirectory(File directory) {
         if (directory.isDirectory()) {
             File[] files = directory.listFiles();
+            if (files==null)
+                return;
             for (File file : files) {
                 removeDirectory(file);
             }
@@ -42,10 +47,8 @@ public class TestUtil {
                     stringBuilder.append(line);
             }
             br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("IO exception while reading from file "+fileName,e);
         }
 
         return stringBuilder.toString();

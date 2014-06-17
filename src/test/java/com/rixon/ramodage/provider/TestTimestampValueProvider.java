@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import static junit.framework.TestCase.assertNotNull;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rixon
@@ -32,6 +34,7 @@ public class TestTimestampValueProvider {
     public void testBasicRandomValues() {
         for (int i=0;i<1000;i++) {
             Date value = timeStampValueProvider.randomValue();
+            assertNotNull(value);
             //System.out.println("value = " + value);
         }
     }
@@ -41,6 +44,7 @@ public class TestTimestampValueProvider {
         Field<Date> dateField = mockField();
         for (int i=0;i<1000;i++){
             String timeStampValue = timeStampValueProvider.randomValueAsString(dateField);
+            assertNotNull(timeStampValue);
             //System.out.println("timeStampValue = " + timeStampValue);
         }
     }
@@ -50,19 +54,20 @@ public class TestTimestampValueProvider {
         Field<Date> dateField = mockFieldForMillisecond();
         for (int i=0;i<1000;i++){
             String timeStampValue = timeStampValueProvider.randomValueAsString(dateField);
+            assertNotNull(timeStampValue);
             //System.out.println("timeStampValue = " + timeStampValue);
         }
 
     }
 
     private Field<Date> mockField() {
-        Field<Date> dateField = new Field<Date>();
+        Field<Date> dateField = new Field<>();
         dateField.setFormatMask("yyyyMMddHHmmss");
         return dateField;
     }
 
     private Field<Date> mockFieldForMillisecond() {
-        Field<Date> dateField = new Field<Date>();
+        Field<Date> dateField = new Field<>();
         dateField.setFormatMask("yyyyMMddHHmmssSSSS");
         return dateField;
     }

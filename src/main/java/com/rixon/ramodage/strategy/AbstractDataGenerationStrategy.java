@@ -1,7 +1,7 @@
 package com.rixon.ramodage.strategy;
 
-import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.Options;
+import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.destination.DataDestination;
 import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.DataGenerationStatusImpl;
@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

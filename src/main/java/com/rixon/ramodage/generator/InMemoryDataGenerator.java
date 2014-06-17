@@ -49,7 +49,6 @@ public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
     public DataGenerationStatus<TYPE> generateDataAsynchronously(Schema schema, Options options) {
         DataDestination<TYPE> dataDestination = new InMemoryDestination(schema, options);
         DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.IN_MEMORY.getDescription());
-        DataGenerationStatus<TYPE> dataGenerationStatus = strategy.generateDataAsynchronously(schema,options,dataDestination);
-        return dataGenerationStatus;
+        return strategy.generateDataAsynchronously(schema,options,dataDestination);
     }
 }

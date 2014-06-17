@@ -15,7 +15,6 @@ import java.util.Properties;
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.lessThan;
 
 /**
  * User: rixonmathew
@@ -64,16 +63,13 @@ public class LibTest {
         long startTime = System.currentTimeMillis();
         DataGenerationStatus<DailyTrade> dataGenerationStatus = ramodage.generateDataAsynchronously(properties);
 
-        long expectedTimeTaken=2000l;
         long timeTakenToReturnAsyncCall=System.currentTimeMillis()-startTime;
         System.out.println("timeTakenToReturnAsyncCall = " + timeTakenToReturnAsyncCall);
         assertNotNull(dataGenerationStatus);
         while (!dataGenerationStatus.isDataGenerationComplete()) {
             try {
                 Thread.sleep(500l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+            } catch (InterruptedException e) {}
         }
         long timeTaken=System.currentTimeMillis()-startTime;
         System.out.println("timeTaken = " + timeTaken);

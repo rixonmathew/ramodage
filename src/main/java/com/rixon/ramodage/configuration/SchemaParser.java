@@ -53,8 +53,7 @@ public class SchemaParser {
     }
 
     public static Schema parseFromContent(String schemaContent) {
-        Schema schema = populateAttributes(schemaContent);
-        return schema;
+        return populateAttributes(schemaContent);
     }
 
 }

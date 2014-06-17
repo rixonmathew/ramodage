@@ -25,7 +25,6 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     protected Map<String,Field> fieldMap;
     protected long stepValue;
     private long startTimestamp;
-    private long endTimestamp;
 
 
     @Override
@@ -58,7 +57,7 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
 
     protected void createMasterQuotes() {
         populateFieldMap();
-        masterQuotes = new HashMap<String, List<PriceSet>>();
+        masterQuotes = new HashMap<>();
         Field symbolField = fieldMap.get(SYMBOL);
         String[] symbols = symbolField.getRange().split(",");
         for (String symbolName:symbols) {
@@ -67,7 +66,7 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     }
 
     private void populateFieldMap() {
-        fieldMap = new HashMap<String, Field>();
+        fieldMap = new HashMap<>();
         for (Field field:schema.getFields()){
             fieldMap.put(field.getName(),field);
         }
@@ -76,13 +75,13 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     protected void initializeTimeStamps() {
         Field timeStampField = fieldMap.get(TIMESTAMP);
         startTimestamp = Long.valueOf(timeStampField.getMinValue());
-        endTimestamp = Long.valueOf(timeStampField.getMaxValue());
+        long endTimestamp = Long.valueOf(timeStampField.getMaxValue());
         stepValue = Long.valueOf(timeStampField.getStepValue());
         populateTimestampsForSplits();
     }
 
     private void populateTimestampsForSplits() {
-        timestampsPerSplit = new HashMap<String, List<Long>>();
+        timestampsPerSplit = new HashMap<>();
         for (int i=0;i<options.getNumberOfFileSplits();i++) {
             List<Long> timestamps = getTimestampsPerSplit(i);
             timestampsPerSplit.put(String.valueOf(i),timestamps);
@@ -92,14 +91,14 @@ public abstract class AbstractMarketDataGenerationStrategy extends AbstractDataG
     private List<Long> getTimestampsPerSplit(int i) {
         Long startTime = startTimestamp+i*options.getNumberOfRecordsPerSplit()*stepValue;
         Long endTime = startTime+stepValue*options.getNumberOfRecordsPerSplit()-stepValue;
-        List<Long> timestamps = new ArrayList<Long>();
+        List<Long> timestamps = new ArrayList<>();
         timestamps.add(startTime);
         timestamps.add(endTime);
         return timestamps;
     }
 
     private List<PriceSet> createPriceSets() {
-        List<PriceSet> priceSets = new ArrayList<PriceSet>();
+        List<PriceSet> priceSets = new ArrayList<>();
         PriceSet priceSet100 = new PriceSet();
         priceSet100.askPrice="00002000000";
         priceSet100.bidPrice="00001800000";

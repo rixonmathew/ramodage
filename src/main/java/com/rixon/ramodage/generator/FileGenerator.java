@@ -45,7 +45,7 @@ public class FileGenerator<TYPE> implements DataGenerator<TYPE>{
      */
     @Override
     public DataGenerationStatus<TYPE> generateDataAsynchronously(Schema schema, Options options) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;  //TODO provide implementation
     }
 
 

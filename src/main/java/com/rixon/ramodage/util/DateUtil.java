@@ -1,7 +1,6 @@
 package com.rixon.ramodage.util;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class DateUtil {
 
     private final static String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
-    private static final Map<String,DateFormat> formatters = new HashMap<String,DateFormat>();
+    private static final Map<String,DateFormat> formatters = new HashMap<>();
 
     public synchronized static Date getFormattedDate(String dateString,String dateFormatMask) {
         try {
@@ -25,9 +24,6 @@ public class DateUtil {
                 dateFormatMask=DEFAULT_DATE_FORMAT;
             DateFormat dateFormat = getFormatter(dateFormatMask);
             return dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Invalid date string " + dateString);
         } catch(Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Invalid date string " + dateString);

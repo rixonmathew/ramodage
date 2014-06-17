@@ -9,7 +9,7 @@ import java.util.Map;
 * Time: 7:42 PM
 */
 public class ProgressReporter {
-    private final Map<String,Float> taskProgress = new HashMap<String, Float>();
+    private final Map<String,Float> taskProgress = new HashMap<>();
 
     public synchronized void updateThreadProgress(String taskId,Float progress) {
         taskProgress.put(taskId,progress);

@@ -11,7 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparison.*;
+import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
+import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -65,6 +67,7 @@ public class TestDateValueProvider {
     public void testDateFormatCheck(){
         for (int i=0;i<1000;i++){
             Date date = dateValueProvider.randomValue();
+            assertNotNull(date);
             //System.out.printf("%s formatted(YYYYMMDD): %s \n",date.toString(),DateUtil.getFormattedDate(date,"dd-MM-YYYY"));
         }
     }
@@ -82,7 +85,7 @@ public class TestDateValueProvider {
     }
 
     private Field<Date> mockField() {
-        Field<Date> dateField = new Field<Date>();
+        Field<Date> dateField = new Field<>();
         dateField.setType("date");
         dateField.setFormatMask("yyyyMMdd");
         dateField.setFixedLength(8);

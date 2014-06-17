@@ -24,6 +24,7 @@ public class TestXMLRecordCreationStrategy {
         assertNotNull(recordCreationStrategy);
         //String expectedString = "<position>\n</position>";
         String recordString = recordCreationStrategy.createRecord(schema,options,1);
+        assertNotNull(recordString);
         //assertThat(recordString,is(expectedString));
     }
 }

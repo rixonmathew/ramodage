@@ -1,8 +1,8 @@
 package com.rixon.ramodage.generator;
 
+import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.SchemaParser;
-import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Test;

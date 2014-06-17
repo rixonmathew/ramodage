@@ -1,8 +1,8 @@
 package com.rixon.ramodage.strategy.record;
 
 import com.rixon.ramodage.configuration.Field;
-import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.Options;
+import com.rixon.ramodage.configuration.Schema;
 
 import java.util.List;
 import java.util.Map;

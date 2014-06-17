@@ -47,7 +47,7 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
      */
     @Override
     public RandomData<TYPE> getRandomData() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null; //TODO wrap provide RandomData implementation that gets the records from files
     }
 
     private void generateOutputDirectories() {
@@ -69,7 +69,7 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
             try {
                 outputFile.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new IllegalArgumentException("Could not created file in directory "+outputDirectory.getAbsolutePath()+" Check permissions",e);
             }
             filesForSplit.put((long) split, outputFile);
             splitNames.add(Integer.toString(split));
@@ -90,7 +90,7 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
             try {
                 entry.getValue().close();
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new RuntimeException("Could not close file write for "+entry.getKey(),e);
             }
         }
         dataWriters.clear();
@@ -111,7 +111,7 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
                 writer.write(record);
                 writer.newLine();
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new RuntimeException("Could not write to file for split "+split,e);
             }
 
         } else {
@@ -122,7 +122,7 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
                 writer.newLine();
                 dataWriters.put(split,writer);
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new RuntimeException("Could not write to file for split "+split,e);
             }
         }
 

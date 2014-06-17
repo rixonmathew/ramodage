@@ -19,8 +19,7 @@ public class ReflectionUtils {
         try {
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             Class<TYPE> objectClass = (Class<TYPE>) classLoader.loadClass(objectClassName);
-            TYPE objectInstance = objectClass.newInstance();
-            return objectInstance;
+            return objectClass.newInstance();
         } catch (ClassNotFoundException e) {
             throw new IllegalArgumentException("Class not found "+objectClassName,e);
         } catch (InstantiationException e) {

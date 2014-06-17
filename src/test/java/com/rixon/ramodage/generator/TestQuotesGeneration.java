@@ -1,8 +1,8 @@
 package com.rixon.ramodage.generator;
 
+import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.SchemaParser;
-import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class TestQuotesGeneration {
         try {
             assertRecordLength(options,expectedMockLength);
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new RuntimeException("Error in IO ",e);
         }
     }
 

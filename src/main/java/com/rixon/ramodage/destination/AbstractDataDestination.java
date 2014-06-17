@@ -63,4 +63,12 @@ public abstract class AbstractDataDestination<TYPE> implements DataDestination<T
     public void addRecord(String split, String record) {
 
     }
+
+    /**
+     * This method is used to clear the state of data generation
+     */
+    @Override
+    public void clear() {
+
+    }
 }

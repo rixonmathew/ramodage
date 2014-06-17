@@ -28,7 +28,7 @@ class DateProvider {
 
 
     static{
-        dateList = new ArrayList<Date>();
+        dateList = new ArrayList<>();
         random = new Random();
     }
 
@@ -54,8 +54,7 @@ class DateProvider {
         BufferedReader br = new BufferedReader(new InputStreamReader(datesFile));
         String line = br.readLine();
         while (line != null) {
-            if (line != null)
-                dateList.add(DateUtil.getFormattedDate(line));
+            dateList.add(DateUtil.getFormattedDate(line));
             line = br.readLine();
         }
         br.close();

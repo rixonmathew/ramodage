@@ -13,6 +13,5 @@ public class RamodageFactory {
 
     public static Ramodage getWithDefaultOptions() {
         return new Ramodage();
-        //TODO provide real implementation
     }
 }

@@ -1,7 +1,7 @@
 package com.rixon.ramodage.strategy;
 
-import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.Options;
+import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.destination.DataDestination;
 import com.rixon.ramodage.model.DataGenerationStatus;
 

@@ -2,7 +2,6 @@ package com.rixon.ramodage.model;
 
 import com.rixon.ramodage.strategy.ProgressReporter;
 
-import java.io.PrintStream;
 import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
@@ -47,8 +46,7 @@ public class RandomDataImpl<TYPE> implements RandomData<TYPE> {
     public TYPE getRandomRecord() {
         if (records==null || records.isEmpty())
             return null;
-        TYPE record = records.get(random.nextInt(records.size()));
-        return record;
+        return records.get(random.nextInt(records.size()));
     }
 
     /**
@@ -75,7 +73,7 @@ public class RandomDataImpl<TYPE> implements RandomData<TYPE> {
     public String getProgress() {
         if (progressReporter==null)
             return "0.0";
-        return String.format("0.2f",progressReporter.overallProgress());
+        return String.format("%.2f",progressReporter.overallProgress());
     }
 
     /**

@@ -56,11 +56,4 @@ public class InMemoryDestination<TYPE> extends AbstractDataDestination<TYPE> {
         return destinationMetaData;
     }
 
-    /**
-     * This method is used to clear the state of data generation
-     */
-    @Override
-    public void clear() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

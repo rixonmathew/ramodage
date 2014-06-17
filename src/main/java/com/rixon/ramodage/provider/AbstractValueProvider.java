@@ -176,15 +176,4 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
     TYPE randomValueWithSuffix(long minLength, long maxLength, TYPE suffix) {
         return randomValue(minLength,maxLength);
     }
-
-    /**
-     * This method can be used to control the precision on the numbers
-     * @param value
-     * @param field
-     * @return
-     */
-    //TODO introduce precision in Field.
-    protected TYPE applyPrecisionForNumbers(TYPE value,Field<TYPE> field){
-        return value;
-    }
 }
