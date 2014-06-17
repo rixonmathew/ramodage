@@ -32,6 +32,7 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
 
     public AbstractDataGenerationStrategy(){
       progressDestination = System.out;
+      progressReporter = new ProgressReporter();
     }
 
     @Override
@@ -55,7 +56,6 @@ public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenera
     @Override
     public DataGenerationStatus<TYPE> generateDataAsynchronously(final Schema schema, final Options options, final DataDestination<TYPE> dataDestination) {
         final DataGenerationStatus<TYPE> dataGenerationStatus = new DataGenerationStatusImpl<>();
-        progressReporter = new ProgressReporter();
         dataGenerationStatus.setProgressReporter(progressReporter);
         dataGenerationStatus.setDataDestination(dataDestination);
         ExecutorService executorService = Executors.newSingleThreadExecutor();

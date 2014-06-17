@@ -47,7 +47,7 @@ public class LibTest {
        assertNotNull(randomData);
        List<DailyTrade> allRecords = randomData.getAllRecords();
        assertNotNull(allRecords);
-       int expectedSize=500;
+       int expectedSize=expectedRecords*expectedSplits;
        assertThat("Size is not as expected",allRecords.size(),is(expectedSize));
        for (int i=0;i<100;i++) {
            DailyTrade dailyTrade = randomData.getRandomRecord();
@@ -74,7 +74,6 @@ public class LibTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            System.out.println(dataGenerationStatus.getProgress());
         }
         long timeTaken=System.currentTimeMillis()-startTime;
         System.out.println("timeTaken = " + timeTaken);
