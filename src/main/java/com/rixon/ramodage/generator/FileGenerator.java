@@ -5,7 +5,6 @@ import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.destination.DataDestination;
 import com.rixon.ramodage.destination.DestinationType;
 import com.rixon.ramodage.destination.FileBasedDataDestination;
-import com.rixon.ramodage.destination.InMemoryDestination;
 import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.RandomData;
 import com.rixon.ramodage.strategy.DataGenerationStrategy;
@@ -26,11 +25,9 @@ public class FileGenerator implements DataGenerator<String>{
     public RandomData<String> generateData(Schema schema, Options options) {
         DataDestination<String> dataDestination = new FileBasedDataDestination(schema,options);
         DataGenerationStrategy<String> dataGenerationStrategy;
-        if (options.getGenerationType().equals("class")){
-            dataGenerationStrategy = DataGenerationStrategyContext.strategyFromClass(options.getDataGenerationStrategyClassName());
-        } else {
-            dataGenerationStrategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.FILE.getDescription());
-        }
+        dataGenerationStrategy = DataGenerationStrategyContext.strategyForOptions(options.getGenerationType(),
+                                                                    DestinationType.FILE.getDescription(),
+                                                                    options.getDataGenerationStrategyClassName());
         dataGenerationStrategy.generateData(schema,options,dataDestination);
         return dataDestination.getRandomData();
     }
@@ -48,12 +45,9 @@ public class FileGenerator implements DataGenerator<String>{
     public DataGenerationStatus<String> generateDataAsynchronously(Schema schema, Options options) {
         DataDestination<String> dataDestination = new FileBasedDataDestination(schema, options);
         DataGenerationStrategy<String> dataGenerationStrategy;
-        //TODO Move this logic and expose one method from Context to get the strategy
-        if (options.getGenerationType().equals("class")){
-            dataGenerationStrategy = DataGenerationStrategyContext.strategyFromClass(options.getDataGenerationStrategyClassName());
-        } else {
-            dataGenerationStrategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.FILE.getDescription());
-        }
+        dataGenerationStrategy = DataGenerationStrategyContext.strategyForOptions(options.getGenerationType(),
+                                                                                  DestinationType.FILE.getDescription(),
+                                                                                  options.getDataGenerationStrategyClassName());
         return dataGenerationStrategy.generateDataAsynchronously(schema,options,dataDestination);
     }
 

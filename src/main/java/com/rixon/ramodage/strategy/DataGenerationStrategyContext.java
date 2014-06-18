@@ -24,7 +24,10 @@ public class DataGenerationStrategyContext {
         strategies.put(createKey(RANDOM, DestinationType.IN_MEMORY.getDescription()),new RandomInMemoryGenerationStrategy());
     }
 
-    public static DataGenerationStrategy strategyForType(String dataGenerationType,String destinationType) {
+    public static DataGenerationStrategy strategyForOptions(String dataGenerationType, String destinationType,String customStrategyClassName) {
+        if (dataGenerationType=="class") {
+            return strategyFromClass(customStrategyClassName);
+        }
         String key = createKey(dataGenerationType,destinationType);
         if (!strategies.containsKey(key)) {
             LOG.debug("Invalid file generation type specified :"+dataGenerationType);
@@ -32,7 +35,7 @@ public class DataGenerationStrategyContext {
         return strategies.get(key);
     }
 
-    public static DataGenerationStrategy strategyFromClass(String className) {
+    private static DataGenerationStrategy strategyFromClass(String className) {
         DataGenerationStrategy strategy = null;
         try {
             strategy = (DataGenerationStrategy)Class.forName(className).newInstance();

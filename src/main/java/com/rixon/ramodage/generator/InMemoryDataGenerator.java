@@ -31,7 +31,9 @@ public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
     @Override
     public RandomData<TYPE> generateData(Schema schema, Options options) {
         DataDestination<TYPE> dataDestination = new InMemoryDestination(schema, options);
-        DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.IN_MEMORY.getDescription());
+        DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForOptions(options.getGenerationType(),
+                                                                              DestinationType.IN_MEMORY.getDescription(),
+                                                                              options.getDataGenerationStrategyClassName());
         strategy.generateData(schema,options,dataDestination);
         return dataDestination.getRandomData();
     }
@@ -48,7 +50,9 @@ public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
     @Override
     public DataGenerationStatus<TYPE> generateDataAsynchronously(Schema schema, Options options) {
         DataDestination<TYPE> dataDestination = new InMemoryDestination(schema, options);
-        DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.IN_MEMORY.getDescription());
+        DataGenerationStrategy strategy = DataGenerationStrategyContext.strategyForOptions(options.getGenerationType(),
+                                                                        DestinationType.IN_MEMORY.getDescription(),
+                                                                        options.getDataGenerationStrategyClassName());
         return strategy.generateDataAsynchronously(schema,options,dataDestination);
     }
 }
