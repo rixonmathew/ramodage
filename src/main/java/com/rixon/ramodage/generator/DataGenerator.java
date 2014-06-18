@@ -13,7 +13,8 @@ import com.rixon.ramodage.model.RandomData;
  * This interface represents the entity responsible for generating random data
  * based on the schema and other options provided. Here TYPE represents generic
  * type used for holding the random data. When the random data is requested in an
- * object format it will be of instance TYPE.
+ * object format it will be of instance TYPE.For Generating data in File the TYPE
+ * is String.
  *
  */
 public interface DataGenerator<TYPE> {

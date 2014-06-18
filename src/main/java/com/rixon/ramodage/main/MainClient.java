@@ -15,11 +15,11 @@ import java.util.Properties;
  * Date: 22/1/13
  * Time: 4:24 PM
  */
-public class MockGenerationClient {
+public class MainClient {
 
     public static void main(String[] args) throws IOException {
         if(args.length!=2) {
-            System.err.println("Usage java -jar ramodage --file <properties.file>");
+            System.err.println("Usage java -jar ramodage.jar --file <properties.file>");
             return;
         }
         long startTime = System.currentTimeMillis();

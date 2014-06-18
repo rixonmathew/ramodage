@@ -67,7 +67,7 @@ public class ClientTest {
 
     private void executeMain(String[] args) {
         try {
-            MockGenerationClient.main(args);
+            MainClient.main(args);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             fail("an exception occurred executing the driver");
