@@ -7,7 +7,7 @@ import com.rixon.ramodage.model.RandomData;
  * Date: 15/06/14
  * Time: 8:12 PM
  *
- * This interface represents the enttity that abstracts the destination of the random data that has been generated.
+ * This interface represents the entity that abstracts the destination of the random data that has been generated.
  */
 public interface DataDestination<TYPE> {
 

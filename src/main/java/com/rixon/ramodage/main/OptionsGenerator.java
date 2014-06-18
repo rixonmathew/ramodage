@@ -50,7 +50,7 @@ public class OptionsGenerator {
     private void setOutputDirectory(Properties properties, Options options) {
         String outputDirectory = properties.getProperty(Constants.OUTPUT_DIRECTORY);
         if(outputDirectory==null||outputDirectory.isEmpty()){
-            outputDirectory = Constants.DEFAULT_OUTPUT_DIR;
+            outputDirectory = Constants.DEFAULT_OUTPUT_DIR+System.currentTimeMillis();
         }
         options.setOutputDirectory(outputDirectory);
     }

@@ -40,8 +40,15 @@ public interface DataGenerationStatus<TYPE> {
     public RandomData<TYPE> getRandomData();
 
 
+    /**
+     * This method sets the progress reporter
+     * @param progressReporter
+     */
     public void setProgressReporter(ProgressReporter progressReporter);
 
-
+    /**
+     * This methods sets the data destination
+     * @param dataDestination
+     */
     public void setDataDestination(DataDestination<TYPE> dataDestination);
 }

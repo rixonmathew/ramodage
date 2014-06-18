@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Date: 15/06/14
  * Time: 8:23 PM
  */
-public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE> {
+public class FileBasedDataDestination extends AbstractDataDestination<String> {
 
     private File outputDirectory;
     private final Map<Long, File> filesForSplit;
@@ -46,8 +46,8 @@ public class FileBasedDataDestination<TYPE> extends AbstractDataDestination<TYPE
      * @return random data object
      */
     @Override
-    public RandomData<TYPE> getRandomData() {
-        return null; //TODO wrap provide RandomData implementation that gets the records from files
+    public RandomData<String> getRandomData() {
+        return new FileBasedRandomData(outputDirectory);
     }
 
     private void generateOutputDirectories() {

@@ -5,6 +5,7 @@ import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.destination.DataDestination;
 import com.rixon.ramodage.destination.DestinationType;
 import com.rixon.ramodage.destination.FileBasedDataDestination;
+import com.rixon.ramodage.destination.InMemoryDestination;
 import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.RandomData;
 import com.rixon.ramodage.strategy.DataGenerationStrategy;
@@ -17,14 +18,14 @@ import org.apache.log4j.Logger;
  * Date: 20/01/13
  * Time: 1:17 PM
  */
-public class FileGenerator<TYPE> implements DataGenerator<TYPE>{
+public class FileGenerator implements DataGenerator<String>{
 
     private final Logger LOG = Logger.getLogger(FileGenerator.class);
 
     @Override
-    public RandomData<TYPE> generateData(Schema schema, Options options) {
-        DataDestination<TYPE> dataDestination = new FileBasedDataDestination(schema,options);
-        DataGenerationStrategy<TYPE> dataGenerationStrategy;
+    public RandomData<String> generateData(Schema schema, Options options) {
+        DataDestination<String> dataDestination = new FileBasedDataDestination(schema,options);
+        DataGenerationStrategy<String> dataGenerationStrategy;
         if (options.getGenerationType().equals("class")){
             dataGenerationStrategy = DataGenerationStrategyContext.strategyFromClass(options.getDataGenerationStrategyClassName());
         } else {
@@ -44,8 +45,16 @@ public class FileGenerator<TYPE> implements DataGenerator<TYPE>{
      * @return an instance of RandomData
      */
     @Override
-    public DataGenerationStatus<TYPE> generateDataAsynchronously(Schema schema, Options options) {
-        return null;  //TODO provide implementation
+    public DataGenerationStatus<String> generateDataAsynchronously(Schema schema, Options options) {
+        DataDestination<String> dataDestination = new FileBasedDataDestination(schema, options);
+        DataGenerationStrategy<String> dataGenerationStrategy;
+        //TODO Move this logic and expose one method from Context to get the strategy
+        if (options.getGenerationType().equals("class")){
+            dataGenerationStrategy = DataGenerationStrategyContext.strategyFromClass(options.getDataGenerationStrategyClassName());
+        } else {
+            dataGenerationStrategy = DataGenerationStrategyContext.strategyForType(options.getGenerationType(), DestinationType.FILE.getDescription());
+        }
+        return dataGenerationStrategy.generateDataAsynchronously(schema,options,dataDestination);
     }
 
 

@@ -2,8 +2,8 @@ package com.rixon.ramodage.destination;
 
 import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
+import com.rixon.ramodage.model.InMemoryRandomData;
 import com.rixon.ramodage.model.RandomData;
-import com.rixon.ramodage.model.RandomDataImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class InMemoryDestination<TYPE> extends AbstractDataDestination<TYPE> {
         for (List<TYPE> objectsPerSplit:objectHolder.values()) {
             objects.addAll(objectsPerSplit);
         }
-        return new RandomDataImpl<>(objects);
+        return new InMemoryRandomData<>(objects);
     }
 
     /**

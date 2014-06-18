@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,6 +29,7 @@ public class LibTest {
     private Ramodage ramodage;
     private int expectedRecords = 50000;
     private int expectedSplits=10;
+    private File outputDirectory;
 
     @Before
     public void setup() {
@@ -37,6 +39,9 @@ public class LibTest {
     @After
     public void teardown() {
         ramodage = null;
+        if (outputDirectory!=null){
+            TestUtil.removeDirectory(outputDirectory);
+        }
     }
 
     @Test
@@ -84,6 +89,35 @@ public class LibTest {
         }
 
     }
+
+    @Test
+    public void testAPIBehaviorInFileCreationUsingAsyncCall() {
+        Properties properties = createPropertiesForFileBasedRandomData();
+        outputDirectory = new File(properties.getProperty(Constants.OUTPUT_DIRECTORY));
+        DataGenerationStatus<String> dailyTradeDataGenerationStatus = ramodage.generateDataAsynchronously(properties);
+        assertNotNull(dailyTradeDataGenerationStatus);
+        while (!dailyTradeDataGenerationStatus.isDataGenerationComplete()) {
+            try {
+                Thread.sleep(500l);
+            } catch (InterruptedException e) {}
+        }
+
+        List<String> allRecords = dailyTradeDataGenerationStatus.getRandomData().getAllRecords();
+        int expectedSize=expectedRecords*expectedSplits;
+        assertThat("Size is not as expected",allRecords.size(),is(expectedSize));
+    }
+
+    private Properties createPropertiesForFileBasedRandomData() {
+        Properties properties = new Properties();
+        properties.setProperty(Constants.SCHEMA,"./src/test/resources/com/rixon/ramodage/util/daily_trades.json");
+        properties.setProperty(Constants.GENERATION_TYPE,"random");
+        properties.setProperty(Constants.DESTINATION_TYPE,"FILE");
+        properties.setProperty(Constants.OUTPUT_DIRECTORY,"daily_trades_test");
+        properties.setProperty(Constants.RECORDS_PER_SPLIT,String.valueOf(expectedRecords));
+        properties.setProperty(Constants.NUMBER_OF_SPLITS,String.valueOf(expectedSplits));
+        return properties;
+    }
+
 
     private Properties createProperties() {
         Properties properties = new Properties();
