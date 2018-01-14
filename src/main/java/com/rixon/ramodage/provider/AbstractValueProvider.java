@@ -1,7 +1,8 @@
 package com.rixon.ramodage.provider;
 
 import com.rixon.ramodage.configuration.Field;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Random;
 abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
 
     final Random random = new Random();
-    private final Logger LOG = Logger.getLogger(AbstractValueProvider.class);
+    private final Logger LOG = LoggerFactory.getLogger(AbstractValueProvider.class);
 
     /**
      * This method allows the provider to fetch a random value from the given range that user has supplied.

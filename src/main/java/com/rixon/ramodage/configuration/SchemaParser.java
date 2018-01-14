@@ -1,7 +1,8 @@
 package com.rixon.ramodage.configuration;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,7 +16,7 @@ import java.io.IOException;
  */
 public class SchemaParser {
 
-    private static final Logger LOG = Logger.getLogger(SchemaParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SchemaParser.class);
 
     public static Schema parseFromFile(String schemaFileName) {
         Schema schema = null;
