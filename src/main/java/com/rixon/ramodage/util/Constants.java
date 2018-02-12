@@ -7,8 +7,6 @@ package com.rixon.ramodage.util;
  */
 public class Constants {
 
-
-
     private Constants(){}
     public static final String DEFAULT_GENERATION_TYPE = "random";
     public static final int DEFAULT_NUMBER_OF_SPLITS = 5;
