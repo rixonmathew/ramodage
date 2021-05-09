@@ -4,17 +4,13 @@ import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.generator.FileGenerator;
 import com.rixon.ramodage.validator.PropertyValidator;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * This class represents the entry point
- * User: rixon
- * Date: 22/1/13
- * Time: 4:24 PM
- */
+@SpringBootApplication
 public class MainClient {
 
     public static void main(String[] args) throws IOException {
