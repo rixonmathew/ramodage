@@ -2,7 +2,7 @@ package com.rixon.ramodage.provider;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -20,12 +20,12 @@ public class TestIntegerValueProvider {
 
     private IntegerValueProvider integerValueProvider;
 
-    @Before
+    @BeforeEach
     public void setup() {
         integerValueProvider = new IntegerValueProvider();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         integerValueProvider = null;
     }

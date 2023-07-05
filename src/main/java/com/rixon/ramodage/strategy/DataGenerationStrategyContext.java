@@ -1,7 +1,8 @@
 package com.rixon.ramodage.strategy;
 
 import com.rixon.ramodage.destination.DestinationType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class DataGenerationStrategyContext {
 
     private static final String RANDOM="random";
-    private static final Logger LOG = Logger.getLogger(DataGenerationStrategyContext.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataGenerationStrategyContext.class);
 
     private static final Map<String,DataGenerationStrategy> strategies;
     static {

@@ -9,7 +9,8 @@ import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.RandomData;
 import com.rixon.ramodage.strategy.DataGenerationStrategy;
 import com.rixon.ramodage.strategy.DataGenerationStrategyContext;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: rixonmathew
@@ -20,7 +21,7 @@ import org.apache.log4j.Logger;
  */
 public class InMemoryDataGenerator<TYPE> implements DataGenerator<TYPE> {
 
-    private final Logger LOG = Logger.getLogger(FileGenerator.class);
+    private final Logger LOG = LoggerFactory.getLogger(FileGenerator.class);
     /**
      * This method will generate data based on the schema and options
      *

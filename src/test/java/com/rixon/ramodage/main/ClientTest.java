@@ -2,7 +2,7 @@ package com.rixon.ramodage.main;
 
 import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
@@ -43,7 +43,7 @@ public class ClientTest {
         return properties;
     }
 
-    @After
+    @AfterEach
     public void cleanup() {
         File file = new File(System.getProperty("user.dir"));
         File[] files = file.listFiles(new FilenameFilter() {

@@ -1,15 +1,15 @@
 package com.rixon.ramodage.provider;
 
 import com.rixon.ramodage.configuration.Field;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,12 +22,12 @@ public class TestBigDecimalValueProvider {
 
     private ValueProvider<BigDecimal> valueProvider;
 
-    @Before
+    @BeforeEach
     public void setup(){
         valueProvider = TypeValueProviders.valueProviderFor("BigDecimal");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         valueProvider = null;
     }

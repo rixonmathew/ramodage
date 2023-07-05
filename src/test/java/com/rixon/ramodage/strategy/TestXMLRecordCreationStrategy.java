@@ -4,7 +4,7 @@ import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.strategy.record.RecordCreationContext;
 import com.rixon.ramodage.strategy.record.RecordCreationStrategy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static junit.framework.Assert.assertNotNull;
 

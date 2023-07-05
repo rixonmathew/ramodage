@@ -7,7 +7,7 @@ import com.rixon.ramodage.util.Constants;
 import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
@@ -31,12 +31,12 @@ public class LibTest {
     private int expectedSplits=10;
     private File outputDirectory;
 
-    @Before
+    @BeforeEach
     public void setup() {
         ramodage = RamodageFactory.getWithDefaultOptions();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         ramodage = null;
         if (outputDirectory!=null){

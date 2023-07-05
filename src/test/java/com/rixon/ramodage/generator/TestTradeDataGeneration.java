@@ -5,7 +5,7 @@ import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.SchemaParser;
 import com.rixon.ramodage.util.TestUtil;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +39,7 @@ public class TestTradeDataGeneration {
         assertFiles(schema,options,fileGenerator);
     }
 
-    @After
+    @AfterEach
     public void cleanup() {
         if(directory!=null) {
             TestUtil.removeDirectory(directory);

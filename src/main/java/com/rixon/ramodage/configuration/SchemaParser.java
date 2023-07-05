@@ -1,7 +1,9 @@
 package com.rixon.ramodage.configuration;
 
-import com.alibaba.fastjson.JSON;
-import org.apache.log4j.Logger;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,7 +17,9 @@ import java.io.IOException;
  */
 public class SchemaParser {
 
-    private static final Logger LOG = Logger.getLogger(SchemaParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SchemaParser.class);
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     public static Schema parseFromFile(String schemaFileName) {
         Schema schema = null;
@@ -44,16 +48,21 @@ public class SchemaParser {
         return stringBuffer.toString();
     }
 
-    private static Schema populateAttributes(String jsonString) {
+    private static Schema populateAttributes(String jsonString) throws JsonProcessingException {
         if(jsonString==null|| jsonString.isEmpty()){
             LOG.error("An empty json was specified to SchemaParser");
             return Schema.emptySchema();
         }
-        return JSON.parseObject(jsonString,Schema.class);
+        return objectMapper.readValue(jsonString,Schema.class);
     }
 
     public static Schema parseFromContent(String schemaContent) {
-        return populateAttributes(schemaContent);
+        try {
+            return populateAttributes(schemaContent);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

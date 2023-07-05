@@ -2,7 +2,7 @@ package com.rixon.ramodage.provider;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +23,12 @@ public class TestIDValueProvider {
 
     private IDValueProvider valueProvider;
 
-    @Before
+    @BeforeEach
     public void setup() {
        valueProvider = new IDValueProvider();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         valueProvider = null;
     }
