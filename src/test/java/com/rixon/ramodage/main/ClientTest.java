@@ -1,7 +1,7 @@
 package com.rixon.ramodage.main;
 
 import com.rixon.ramodage.util.TestUtil;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -10,7 +10,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Properties;
 
-import static junit.framework.TestCase.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * This class is the test file for testing Client

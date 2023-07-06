@@ -4,7 +4,7 @@ import com.rixon.ramodage.configuration.Options;
 import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.configuration.SchemaParser;
 import com.rixon.ramodage.util.TestUtil;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -14,8 +14,8 @@ import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 /**
  * This is the test class for testing the TradeDataGenerationStrategy

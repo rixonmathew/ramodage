@@ -5,17 +5,17 @@ import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.RandomData;
 import com.rixon.ramodage.util.Constants;
 import com.rixon.ramodage.util.TestUtil;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * User: rixonmathew

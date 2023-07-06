@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * User: rixonmathew
@@ -51,19 +50,17 @@ public class PropertyValidatorTest {
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void test_scenario_where_destination_is_not_set() {
         Properties properties = MockPropertyProvider.propertiesWithoutDestination();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void test_scenario_where_object_class_name_is_invalid() {
         Properties properties = MockPropertyProvider.propertiesWithInvalidObjectClassName();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 }

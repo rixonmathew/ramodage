@@ -6,7 +6,7 @@ import com.rixon.ramodage.strategy.record.RecordCreationContext;
 import com.rixon.ramodage.strategy.record.RecordCreationStrategy;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * This file is used for testing JSON Record creating strategy
