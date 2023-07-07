@@ -135,12 +135,7 @@ public class LibTest {
     }
 
     private String getJSONRepresentationOfSchema() {
-        try {
-            return Files.readString(Paths.get(new ClassPathResource("daily_trades.json").getPath()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//        return TestUtil.getFileContents("daily_trades.json");
+        return TestUtil.getFileContents("daily_trades.json");
     }
 
 }

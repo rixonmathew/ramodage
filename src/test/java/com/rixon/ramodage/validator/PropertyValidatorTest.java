@@ -45,8 +45,7 @@ public class PropertyValidatorTest {
     @Test
     public void test_scenario_where_schema_is_not_set(){
         Properties properties = MockPropertyProvider.propertiesWithoutSchemaSet();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 
