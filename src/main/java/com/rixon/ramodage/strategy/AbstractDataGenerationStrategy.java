@@ -5,7 +5,8 @@ import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.destination.DataDestination;
 import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.DataGenerationStatusImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -23,7 +24,7 @@ import java.util.concurrent.Executors;
  */
 public abstract class AbstractDataGenerationStrategy<TYPE> implements DataGenerationStrategy<TYPE> {
 
-    protected final Logger LOG = Logger.getLogger(AbstractDataGenerationStrategy.class);
+    protected final Logger LOG = LoggerFactory.getLogger(AbstractDataGenerationStrategy.class);
     protected Schema schema;
     protected Options options;
     protected DataDestination dataDestination;

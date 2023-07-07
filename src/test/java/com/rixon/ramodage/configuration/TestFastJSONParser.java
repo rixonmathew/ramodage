@@ -1,7 +1,5 @@
 package com.rixon.ramodage.configuration;
 
-import com.alibaba.fastjson.JSON;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +45,16 @@ public class TestFastJSONParser {
         }
     }
 
-    @Test
-    public void testJSONParsing() {
-        String jsonString = "{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
-        Group group = JSON.parseObject(jsonString, Group.class);
-        List<User> users = group.getUsers();
-        for (User user:users) {
-            System.out.println("user = " + user);
-        }
-        System.out.println("group.getName() = " + group.getName());
-
-    }
+//    @Test
+//    public void testJSONParsing() {
+//        String jsonString = "{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
+//        Group group = JSON.parseObject(jsonString, Group.class);
+//        List<User> users = group.getUsers();
+//        for (User user:users) {
+//            System.out.println("user = " + user);
+//        }
+//        System.out.println("group.getName() = " + group.getName());
+//
+//    }
 
 }

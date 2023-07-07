@@ -1,13 +1,13 @@
 package com.rixon.ramodage.configuration;
 
 import com.rixon.ramodage.util.TestUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * User: rixonmathew

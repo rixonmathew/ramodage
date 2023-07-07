@@ -1,14 +1,13 @@
 package com.rixon.ramodage.validator;
 
 import com.rixon.ramodage.util.MockPropertyProvider;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * User: rixonmathew
@@ -19,12 +18,12 @@ public class PropertyValidatorTest {
 
     private PropertyValidator propertyValidator;
 
-    @Before
+    @BeforeEach
     public void setup() {
         propertyValidator = new PropertyValidator();
     }
 
-    @After
+    @AfterEach
     public void tearDown(){
         propertyValidator = null;
     }
@@ -43,27 +42,24 @@ public class PropertyValidatorTest {
         assertTrue(valid);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_scenario_where_schema_is_not_set(){
         Properties properties = MockPropertyProvider.propertiesWithoutSchemaSet();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void test_scenario_where_destination_is_not_set() {
         Properties properties = MockPropertyProvider.propertiesWithoutDestination();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void test_scenario_where_object_class_name_is_invalid() {
         Properties properties = MockPropertyProvider.propertiesWithInvalidObjectClassName();
-        propertyValidator.arePropertiesValid(properties);
-        fail("IllegalArgumentException should have been thrown");
+        assertThrows(IllegalArgumentException.class,()->propertyValidator.arePropertiesValid(properties));
     }
 
 }

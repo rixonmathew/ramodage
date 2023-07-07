@@ -1,13 +1,13 @@
 package com.rixon.ramodage.provider;
 
 import com.rixon.ramodage.configuration.Field;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,12 +20,12 @@ public class TestTimestampValueProvider {
 
     private ValueProvider<Date> timeStampValueProvider;
 
-    @Before
+    @BeforeEach
     public void setup() {
         timeStampValueProvider = TypeValueProviders.valueProviderFor("Timestamp");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         timeStampValueProvider = null;
     }

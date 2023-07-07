@@ -1,5 +1,7 @@
 package com.rixon.ramodage.configuration;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class Schema {
     private String name;
     private String type;
     private String separator;
+
+    @JsonProperty("class")
+    private String _class;
     private List<Field> fields;
 
 
@@ -60,5 +65,13 @@ public class Schema {
 
     public static Schema emptySchema() {
         return EMPTY_SCHEMA;
+    }
+
+    public String get_class() {
+        return _class;
+    }
+
+    public void set_class(String _class) {
+        this._class = _class;
     }
 }

@@ -6,7 +6,8 @@ import com.rixon.ramodage.configuration.Schema;
 import com.rixon.ramodage.provider.TypeValueProviders;
 import com.rixon.ramodage.provider.ValueProvider;
 import com.rixon.ramodage.util.ReflectionUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public abstract class AbstractRecordCreationStrategy<TYPE> implements RecordCreationStrategy<TYPE> {
 
-    private static final Logger LOG = Logger.getLogger(AbstractRecordCreationStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractRecordCreationStrategy.class);
     @Override
     public String createRecord(Schema schema, Options options, long recordCounter) {
         return createRecordWithOverrides(schema,options,recordCounter,null);

@@ -1,7 +1,8 @@
 package com.rixon.ramodage.provider;
 
 import com.rixon.ramodage.util.DateUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import java.util.Random;
  */
 class DateProvider {
 
-    private final static Logger LOG = Logger.getLogger(DateProvider.class);
+    private final static Logger LOG = LoggerFactory.getLogger(DateProvider.class);
     private static final List<Date> dateList;
     private static final String DATES_FILE = "dates.txt";
     private static final Random random;

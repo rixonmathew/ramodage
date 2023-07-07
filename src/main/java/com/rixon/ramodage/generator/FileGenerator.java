@@ -9,7 +9,8 @@ import com.rixon.ramodage.model.DataGenerationStatus;
 import com.rixon.ramodage.model.RandomData;
 import com.rixon.ramodage.strategy.DataGenerationStrategy;
 import com.rixon.ramodage.strategy.DataGenerationStrategyContext;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible for creating the actual output files based on options
@@ -19,7 +20,7 @@ import org.apache.log4j.Logger;
  */
 public class FileGenerator implements DataGenerator<String>{
 
-    private final Logger LOG = Logger.getLogger(FileGenerator.class);
+    private final Logger LOG = LoggerFactory.getLogger(FileGenerator.class);
 
     @Override
     public RandomData<String> generateData(Schema schema, Options options) {

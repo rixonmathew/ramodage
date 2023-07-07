@@ -1,6 +1,8 @@
 package com.rixon.ramodage.provider;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,7 @@ import java.util.Map;
  */
 public class TypeValueProviders {
 
-    private final static Logger LOG = Logger.getLogger(TypeValueProviders.class);
+    private final static Logger LOG = LoggerFactory.getLogger(TypeValueProviders.class);
     private static final Map<String,ValueProvider> valueProviders;
 
     static {

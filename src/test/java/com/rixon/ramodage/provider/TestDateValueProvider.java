@@ -2,9 +2,9 @@ package com.rixon.ramodage.provider;
 
 import com.rixon.ramodage.configuration.Field;
 import com.rixon.ramodage.util.DateUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -13,8 +13,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,12 +27,12 @@ public class TestDateValueProvider {
 
     private DateValueProvider dateValueProvider;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         dateValueProvider = new DateValueProvider();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         dateValueProvider = null;
     }
