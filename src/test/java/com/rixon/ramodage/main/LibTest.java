@@ -8,8 +8,12 @@ import com.rixon.ramodage.util.TestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
@@ -131,7 +135,12 @@ public class LibTest {
     }
 
     private String getJSONRepresentationOfSchema() {
-        return TestUtil.getFileContents("daily_trades.json");
+        try {
+            return Files.readString(Paths.get(new ClassPathResource("daily_trades.json").getPath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        return TestUtil.getFileContents("daily_trades.json");
     }
 
 }
